@@ -42,3 +42,9 @@ void Tile::set_point_value(int new_value)
     point_value = new_value;
 }
 
+//copy this tile into the provided tile 
+void Tile::copy_tile(Tile * tile) const
+{
+    tile->letter = letter;
+    tile->point_value = point_value;
+}

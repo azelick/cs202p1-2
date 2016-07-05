@@ -18,7 +18,7 @@ class Space
         Space(const Space & space);
         // destructor
         ~Space();
-        void set_space_with_tile(Tile & ref_tile);
+        void set_tile_in_space(Tile & ref_tile);
         void display_space_contents();
         //TODO Do I want to have an is_bonus() function?
         //bool is_bonus();
