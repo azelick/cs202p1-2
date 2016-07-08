@@ -3,7 +3,7 @@
 // do other actions related to the board.
 
 #include<iostream>
-#include "row_space.h"
+#include "column_space.h"
 #include "dictionary.h"
 #include "TileBag.h"
 
@@ -27,12 +27,12 @@ class Board
         
 
     protected:
-        Space * head;
+        Column_Space * head;
         //Dictionary * dictionary;
         TileBag * bag;
 
 
         bool is_in_dictionary(const char * word);
         //recursive function to create the spaces
-        void create_spaces(Space *&current, int current_index, const int size);
+        void create_spaces(Column_Space *&current, int current_index, const int max_size);
 };

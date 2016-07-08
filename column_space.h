@@ -3,9 +3,11 @@
 
 #include "row_space.h"
 
+#pragma once
+
 using namespace std;
 
-class Column_Space: public Space
+class Column_Space
 {
     public:
         //default constructor
@@ -19,11 +21,16 @@ class Column_Space: public Space
         
         void display();
 
+        Column_Space *&get_previous();
+        Column_Space *&get_next();
         
 
     protected:
         Row_Space *head;
+        Column_Space *previous;
+        Column_Space *next;
 
-        void create_spaces(Row_Space *&head, int length_remaining);
+
+        void create_row_spaces(Row_Space *&head, int length_remaining);
         void copy_column_space(Row_Space *&head, Row_Space * source_head);
 };

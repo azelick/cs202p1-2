@@ -2,12 +2,12 @@
 // It will contain the actual tiles
 
 
-#include "space.h"
 #include "tile.h"
+#pragma once
 
 using namespace std;
 
-class Row_Space: public Space
+class Row_Space
 {
     public:
         //default constructor
@@ -23,8 +23,14 @@ class Row_Space: public Space
         //TODO Do I want to have an is_bonus() function?
         //bool is_bonus();
 
+        Row_Space *&get_previous();
+        Row_Space *&get_next();
+
     protected:
         Tile *tile;
         bool is_bonus;
+
+        Row_Space * previous;
+        Row_Space * next;
 
 };
