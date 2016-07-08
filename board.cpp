@@ -11,7 +11,16 @@ Board::Board(): head(NULL), bag(NULL)
 Board::Board(int board_size)
 {
     //this sets head so we aren't setting it otherwise
-   create_spaces(head, 0, board_size);
+    if(board_size > 0)
+    {
+        head = new Column_Space(board_size);
+        head->get_previous() = NULL;
+        create_spaces(head, (board_size - 1), board_size);
+    }
+    else
+    {
+        head = NULL;
+    }
    //dictionary = new(dictionary(arg));
    bag = new TileBag();
 }
@@ -47,22 +56,19 @@ bool Board::lay_tile_on_board(const Tile * tile, int x, int y, Direction dir)
 
 }
 
-void Board::create_spaces(Column_Space *&current, int current_index,  const int max_size)
+void Board::create_spaces(Column_Space *&current, int length_remaining, int max_size)
 {
-    //if we've reached our maximum size, exit.
-    if (current_index > max_size)
-        return;
     if(current == NULL)
+        return;
+    if(length_remaining <= 0)
     {
-        current = new Column_Space(max_size);
-        //TODO for debugging
-        cout << "A column Space has been made" << endl;
+        current->get_next() = NULL;
+        return;
     }
-   
-    if((current->get_next()) == NULL)
-    {
-        current->get_next() = new Column_Space(max_size);
-        cout << "A column Space has been made" << endl;
-    }
-    create_spaces(current->get_next(), ++current_index, max_size);
+
+    current->get_next() = new Column_Space(max_size);
+    cout << "A column Space has been made" << endl;
+    current->get_next()->get_previous() = current;
+    create_spaces(current->get_next(), --length_remaining, max_size);
+    
 }

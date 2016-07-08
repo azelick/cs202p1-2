@@ -14,7 +14,7 @@ Column_Space::Column_Space(int length)
     {
         head = new Row_Space();
         head->get_previous() = NULL;
-        create_row_spaces(head, length);
+        create_row_spaces(head, --length);
     }
     else
     {

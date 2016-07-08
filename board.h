@@ -34,5 +34,5 @@ class Board
 
         bool is_in_dictionary(const char * word);
         //recursive function to create the spaces
-        void create_spaces(Column_Space *&current, int current_index, const int max_size);
+        void create_spaces(Column_Space *&current, int length_remaining, int max_size);
 };
