@@ -5,6 +5,7 @@
 
 using namespace std;
 
+#pragma once
 
 class Tile
 {

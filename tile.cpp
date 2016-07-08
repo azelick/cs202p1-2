@@ -5,10 +5,8 @@ using namespace std;
 
 
 // Default constructor
-Tile::Tile()
+Tile::Tile(): letter(0), point_value(0)
 {
-	letter = 0;
-	point_value = 0;
 }
    
 Tile::Tile(char new_letter, int new_point_value)

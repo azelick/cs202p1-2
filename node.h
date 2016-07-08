@@ -11,22 +11,23 @@ class Node
         //default constructor
         Node();
         //argument constructor
-        Node(char * word);
+        Node(char *word);
         //copy constructor
         Node(const Node & node);
         //destructor
         ~Node();
         void display();
         int get_size();
-        void copy_word(char * source_word, char * & word);
-        Node * go_left() const;
+        void copy_word(char *source_word, char * &word);
+        bool contains(char *word);
+        Node *& get_left();
         // TODO the lab code has Node * & go_left()...
-        Node * go_right() const;
+        Node *& get_right();
 
     protected:
-        char * word;
+        char *word;
 
-        Node * left;
-        Node * right;
+        Node *left;
+        Node *right;
 
 };

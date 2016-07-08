@@ -3,43 +3,38 @@
 #include "space.h"
 
 //default constructor
-Space::Space()
+Space::Space(): previous(NULL), next(NULL)
 {
-    tile = NULL;
-    is_bonus = false;
-}
-
-Space::Space(Tile & ref_tile, bool ref_is_bonus)
-{
-    *tile = ref_tile;
-    is_bonus = ref_is_bonus;
-
+    
 }
 
 //copy constructor
 Space::Space(const Space & space)
 {
-    is_bonus = space.is_bonus;
-    tile = new Tile();
-    space.tile->copy_tile(tile);
+    previous = space.previous;
+    next = space.next;
 }
 
 //Destructor
 Space::~Space()
 {
-    delete tile;
+    //TODO This might seg fault.
+    if (previous)
+        previous = NULL;
+        //delete previous;
+    if (next)
+        delete next;
 }
 
-void Space::set_tile_in_space(Tile & ref_tile)
+void Space::display()
+{}
+
+Space *&Space::get_previous()
 {
-    *tile = ref_tile;
+    return previous;
 }
 
-void Space::display_space_contents()
+Space *&Space::get_next()
 {
-    if(tile != NULL)
-        tile->display();
-
-    if(is_bonus)
-        cout << "This is a bonus tile." << endl;
+    return next;
 }

@@ -6,6 +6,9 @@
 
 #include<iostream>
 #include "tile.h"
+
+#pragma once
+
 using namespace std;
 
 class Space
@@ -13,18 +16,16 @@ class Space
     public:
         //default constructor
         Space();
-        Space(Tile & ref_tile, bool ref_is_bonus);
         //copy constructor
         Space(const Space & space);
         // destructor
-        ~Space();
-        void set_tile_in_space(Tile & ref_tile);
-        void display_space_contents();
-        //TODO Do I want to have an is_bonus() function?
-        //bool is_bonus();
+        virtual ~Space();
+
+        virtual void display();
+        virtual Space *&get_previous();
+        virtual Space *&get_next();
 
     protected:
-        Tile * tile;
-        bool is_bonus;
-
+        Space *previous;
+        Space *next;
 };

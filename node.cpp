@@ -20,13 +20,26 @@ Node::Node(const Node & node)
 
 Node::~Node()
 {
-
-
+    if(left)
+        delete left;
+    if(right)
+        delete right;
 }
 
 void Node::display()
 {
+    if(!word)
+        return;
+    int i = 0;
+    while(word[i] != '\0')
+    {
+        cout << word[i];
+        i++;
+    }
+    cout << endl;
 
+    left->display();
+    right->display();
 }
 
 int Node::get_size()
@@ -56,12 +69,17 @@ void Node::copy_word(char * source_word, char * & word)
     }
 }
 
-Node* Node::go_left() const
+bool Node::contains(char *word)
+{
+
+}
+
+Node *& Node::get_left()
 {
     return left;
 }
 
-Node* Node::go_right() const
+Node *& Node::get_right()
 {
     return right;
 }

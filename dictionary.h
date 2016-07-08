@@ -19,21 +19,18 @@ class Dictionary
         // argument constructor
         //Dictionary( );
         // copy constructor
-        Dictionary(const Dictionary & dictionary);
+        Dictionary(const Dictionary &dictionary);
         // Destructor
         ~Dictionary();
 
         // Recursive function to copy the BST
-        void copy_tree(Node * & root, const Node * source_root);
-
-        // destructor method for the BST
-        void delete_all(Node * root);
+        void copy_tree(Node * &root, Node *source_root);
 
         // populates the tree from file
-        void fill_tree(Node * root);
+        void fill_tree();
 
         //check to see if the dictionary contains the provided word
-        bool does_contain(char * word);
+        bool does_contain(char *word);
         // TODO Don't know if I want the dictionary to be able
         // to oubput the entire tree or not...
         // Depends on the size of the data?
@@ -41,6 +38,6 @@ class Dictionary
 
     protected:
         // the root of the dictionary's binary search tree
-        Node * root;
+        Node *root;
 
 };
