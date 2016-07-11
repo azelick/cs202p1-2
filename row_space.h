@@ -23,8 +23,15 @@ class Row_Space
         //TODO Do I want to have an is_bonus() function?
         //bool is_bonus();
 
-        Row_Space *&get_previous();
-        Row_Space *&get_next();
+        void set_as_bonus();
+        //return true if there is a tile here already
+        bool is_occupied();
+
+        Row_Space * row_space_at_index(int index);
+
+        Row_Space *& get_previous();
+        Row_Space *& get_next();
+        void traverse(Row_Space *& dest_space, Row_Space * current, int current_index, int index);
 
     protected:
         Tile *tile;

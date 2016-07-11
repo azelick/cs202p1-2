@@ -37,13 +37,18 @@ void Row_Space::set_tile_in_space(Tile &ref_tile)
 
 void Row_Space::display()
 {
+    cout << "| ";
     if(tile != NULL)
         tile->display();
+    else
+        cout << " ";
 
     if(is_bonus)
-        cout << "This is a bonus tile." << endl;
+        cout << "- *";
+    else
+        cout << "-  ";
     //TODO the below line is only for testing
-    cout << "Here is a space" << endl;
+    cout << " | \t";
 
 }
 
@@ -58,3 +63,32 @@ Row_Space *& Row_Space::get_next()
     return next;
 }
 
+Row_Space * Row_Space::row_space_at_index(int index)
+{
+    Row_Space * row;
+    traverse(row, this, 0, index);
+    return row;
+}
+
+void Row_Space::traverse(Row_Space *& dest_space, Row_Space * current, int current_index, int index)
+{
+   if (!current) 
+       return;
+
+   if (current_index == index)
+       dest_space = current;
+
+   traverse(dest_space, current->next, ++current_index, index);
+}
+
+void Row_Space::set_as_bonus()
+{
+    is_bonus = true;
+}
+
+bool Row_Space::is_occupied()
+{
+    if(tile != NULL)
+        return true;
+    return false;
+}

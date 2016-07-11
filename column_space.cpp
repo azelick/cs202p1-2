@@ -38,11 +38,15 @@ Column_Space::~Column_Space()
 void Column_Space::display()
 {
     Row_Space *current = head;
+
+    cout << "row: ";
     while(current != NULL)
     {
         current->display(); 
         current = current->get_next();
     }
+    cout << endl;
+
     current = NULL;
 }
 
@@ -79,5 +83,27 @@ Column_Space *& Column_Space::get_previous()
 Column_Space *& Column_Space::get_next()
 {
     return next;
+}
+
+Row_Space *& Column_Space::get_head()
+{
+    return head;
+}
+
+Column_Space * Column_Space::col_space_at_index(int index)
+{
+    Column_Space * col;  
+    traverse(col, this, 0, index);
+    return col;
+}
+
+void Column_Space::traverse(Column_Space *& dest_col, Column_Space * current, int current_index, int index)
+{
+   if (!current)
+       return; 
+   if (current_index == index)
+       dest_col = current;
+
+   traverse(dest_col, current->next, ++current_index, index);
 }
 

@@ -46,3 +46,8 @@ void Tile::copy_tile(Tile * tile) const
     tile->letter = letter;
     tile->point_value = point_value;
 }
+
+char Tile::get_letter()
+{
+    return letter;
+}

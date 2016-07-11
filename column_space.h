@@ -21,8 +21,11 @@ class Column_Space
         
         void display();
 
-        Column_Space *&get_previous();
-        Column_Space *&get_next();
+        Column_Space * col_space_at_index(int index);
+        Column_Space *& get_previous();
+        Column_Space *& get_next();
+        Row_Space *& get_head();
+        void traverse(Column_Space *& dest_col, Column_Space * current, int current_index, int index);
         
 
     protected:

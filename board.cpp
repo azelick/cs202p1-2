@@ -3,12 +3,12 @@
 
 #include "board.h"
 
-Board::Board(): head(NULL), bag(NULL)
+Board::Board(): head(NULL), bag(NULL), size(0)
 {
    //TODO add dictionary to initialization list for proram2 
 }
 
-Board::Board(int board_size)
+Board::Board(int board_size): size(board_size)
 {
     //this sets head so we aren't setting it otherwise
     if(board_size > 0)
@@ -22,7 +22,7 @@ Board::Board(int board_size)
         head = NULL;
     }
    //dictionary = new(dictionary(arg));
-   bag = new TileBag();
+   bag = new TileBag(board_size);
 }
 
 Board::Board(const Board & board)
@@ -51,9 +51,13 @@ void Board::display()
     current = NULL;
 }
 
-bool Board::lay_tile_on_board(const Tile * tile, int x, int y, Direction dir)
+bool Board::lay_tile_on_board(Tile * tile, int x, int y, Direction dir)
 {
-
+    Row_Space * space =  traverse_to_space(x, y);
+    if (space->is_occupied())
+        return false;
+    space->set_tile_in_space(*tile);
+    return true;
 }
 
 void Board::create_spaces(Column_Space *&current, int length_remaining, int max_size)
@@ -72,3 +76,34 @@ void Board::create_spaces(Column_Space *&current, int length_remaining, int max_
     create_spaces(current->get_next(), --length_remaining, max_size);
     
 }
+
+Row_Space * Board::traverse_to_space(int x_coord, int y_coord)
+{
+
+    Column_Space * col = head->col_space_at_index(y_coord);
+    //returning final_destination by reference
+    return col->get_head()->row_space_at_index(x_coord);
+}
+
+void Board::set_premium()
+{
+    Row_Space * row;
+   for(int i = 0; i < size; i++)
+   {
+        row = traverse_to_space(i, i);
+        row->set_as_bonus();
+        row = traverse_to_space(i, (size - 1 - i));
+        row->set_as_bonus();
+   }
+}
+
+Tile * Board::get_random_tile()
+{
+    return bag->get_random_tile();
+}
+
+void Board::put_tile_back(Tile &tile)
+{
+    bag->put_tile_back(tile);
+}
+
