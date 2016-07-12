@@ -11,6 +11,7 @@ Hand::Hand(Board &board)
 {
     hand = new Tile*[7];
     draw_new_hand(board);
+    return;
 }
 
 Hand::Hand(const Hand & ref_hand)
@@ -20,6 +21,7 @@ Hand::Hand(const Hand & ref_hand)
     {
         hand[i] = ref_hand.hand[i];
     }
+    return;
 }
 
 Hand::~Hand()
@@ -30,6 +32,7 @@ Hand::~Hand()
             delete hand[i];
     }
     delete hand;
+    return;
 }
 
 void Hand::display()
@@ -44,6 +47,7 @@ void Hand::display()
         }
     }
     cout << endl;
+    return;
 }
 
 void Hand::draw_new_hand(Board &board)
@@ -54,6 +58,7 @@ void Hand::draw_new_hand(Board &board)
     {
         hand[i] = get_tile_from_bag(board);
     }
+    return;
 }
 
 void Hand::replace_tile(Board &board, char letter)
@@ -65,7 +70,7 @@ void Hand::replace_tile(Board &board, char letter)
     put_tile_back(board, *hand[i]);
     hand[i] = NULL;
     hand[i] = get_tile_from_bag(board);
-    
+    return;
 }
 
 Tile * Hand::get_tile_from_bag(Board &board)
@@ -76,21 +81,17 @@ Tile * Hand::get_tile_from_bag(Board &board)
 void Hand::put_tile_back(Board &board, Tile &tile)
 {
     board.put_tile_back(tile);
+    return;
 }
 
 void Hand::place_tile_on_board(Board &board, char letter, int x, int y)
 {
     Tile * tile;
     int i = 0;
-    while(hand[i] != '\0')
-    {
-        if(hand[i]->get_letter() == letter)
-        {
-            tile = hand[i];
-            hand[i] = NULL;
-            board.lay_tile_on_board(tile, x, y);
-            break;
-        }
+    while((hand[i] != '\0') && (hand[i]->get_letter() != letter))
         i++;
-    }
+    tile = hand[i];
+    hand[i] = NULL;
+    board.lay_tile_on_board(tile, x, y);
+    return;
 }

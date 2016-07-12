@@ -20,6 +20,7 @@ TileBag::TileBag(int requested_size)
     for (int i = 0; i < tiles_in_bag; i++)
         tiles[i] = NULL;
     populate();
+    return;
 }
 
 TileBag::TileBag(const TileBag &tileBag)
@@ -31,6 +32,7 @@ TileBag::TileBag(const TileBag &tileBag)
    {
        tiles[i] = new Tile(*(tileBag.tiles[i]));
    }
+   return;
 }
 
 TileBag::~TileBag()
@@ -41,6 +43,7 @@ TileBag::~TileBag()
             delete tiles[i];
     }
     delete tiles;
+    return;
 }
 
 void TileBag::populate()
@@ -80,9 +83,11 @@ void TileBag::populate()
                 i++;
            }
            t++;
-           //TODO shuffle isn't working
+           //TODO shuffle isn't working yet, but wasn't explicitly a requirement of program 1
            //shuffle_tiles();
        }
+    
+       return;
 }
 
 Tile * TileBag::get_random_tile()
@@ -101,11 +106,12 @@ Tile * TileBag::get_random_tile()
     while(tiles[i] != NULL)
         i++;
     *tiles[i] = tile;
+    return;
 }
 
 int TileBag::generate_size(int requested_size)
 {   
-    // we want one more unit than what's even.
+    // we want one more unit than calculated.
     int to_return = (requested_size/unit_size) + 1;
     return to_return;
 }
@@ -115,4 +121,5 @@ void TileBag::shuffle_tiles()
     if(!tiles)
         return;
    random_shuffle(tiles[0], tiles[(unit_size*multiplier)-1 ]);
+   return;
 }

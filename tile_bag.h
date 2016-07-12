@@ -1,4 +1,8 @@
 //A bag to manage the number of tiles
+// when it is created with requested size it will 
+// allocate an array then populate it with letters of the alphabet
+//
+// this class has an array of tiles
 
 
 #include <iostream>
@@ -19,8 +23,9 @@ class TileBag
         //destructor
         ~TileBag();
         
-         //return a random tile from the 'bag'
+         //provide the caller with a random tile from the 'bag'
         Tile * get_random_tile();
+        //put a tile back in the array
         void put_tile_back(Tile &tile); 
 
     protected:
@@ -31,9 +36,10 @@ class TileBag
         // and one y
         static const int unit_size = 41;
 
+        //shuffle the order of the tiles
         void shuffle_tiles();
-
         //fill the bag with tiles
         void populate();
+        //calculate how many tiles we need
         int generate_size(int requested_size);
 };

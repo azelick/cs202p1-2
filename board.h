@@ -22,10 +22,15 @@ class Board
         //destructor
         ~Board();
         void display();
+        //place a tile on the board at the given coordinates
         bool lay_tile_on_board(Tile * tile, int x, int y);
+        //put the premium squares on the board
         void set_premium(); 
+        // get the row_space at the given coordinates
         Row_Space * traverse_to_space(int x_coord, int y_coord);
+        //get a random tile from the tile bag
         Tile * get_random_tile();
+        //put a tile back into the tile bag
         void put_tile_back(Tile &tile);
 
     protected:
@@ -34,8 +39,10 @@ class Board
         TileBag * bag;
         int size;
 
-        bool is_in_dictionary(const char * word);
+        //TODO Commented out for program 1
+        //bool is_in_dictionary(const char * word);
         //recursive function to create the spaces
         void create_spaces(Column_Space *&current, int length_remaining, int max_size);
+        //recursive function called by the copy constructor
         void copy_board_columns(Column_Space *&head, Column_Space * src_head);
 };

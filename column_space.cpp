@@ -19,6 +19,7 @@ Column_Space::Column_Space(int length)
     {
         head = NULL;
     }
+    return;
 }
 
 Column_Space::Column_Space(const Column_Space &column_space)
@@ -26,7 +27,8 @@ Column_Space::Column_Space(const Column_Space &column_space)
     previous = NULL;
     next = NULL;
     head = column_space.head;
-   copy_column_space(head, column_space.head);
+    copy_column_space(head, column_space.head);
+    return;
 }
 
 Column_Space::~Column_Space()
@@ -34,6 +36,7 @@ Column_Space::~Column_Space()
     delete head;
     previous = NULL;
     next = NULL;
+    return;
 }
 
 void Column_Space::display()
@@ -49,6 +52,7 @@ void Column_Space::display()
     cout << endl;
 
     current = NULL;
+    return;
 }
 
 void Column_Space::create_row_spaces(Row_Space *&head, int length_remaining)
@@ -63,6 +67,7 @@ void Column_Space::create_row_spaces(Row_Space *&head, int length_remaining)
     head->get_next() = new Row_Space();
     head->get_next()->get_previous() = head;
     create_row_spaces(head->get_next(), --length_remaining);
+    return;
 }
 
 void Column_Space::copy_column_space(Row_Space *&space, Row_Space* source_space)
@@ -106,5 +111,6 @@ void Column_Space::traverse(Column_Space *& dest_col, Column_Space * current, in
        dest_col = current;
 
    traverse(dest_col, current->next, ++current_index, index);
+   return;
 }
 

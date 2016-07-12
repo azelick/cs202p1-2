@@ -12,6 +12,7 @@ Row_Space::Row_Space(Tile & ref_tile, bool ref_is_bonus)
 {
     *tile = ref_tile;
     is_bonus = ref_is_bonus;
+    return;
 }
 
 Row_Space::Row_Space(const Row_Space &row_space): is_bonus(false)
@@ -19,6 +20,7 @@ Row_Space::Row_Space(const Row_Space &row_space): is_bonus(false)
     previous = row_space.previous;
     next = row_space.next;
     tile = new Tile(row_space.tile->get_letter(), row_space.tile->get_point_value());
+    return;
 }
 
 Row_Space::~Row_Space()
@@ -27,13 +29,14 @@ Row_Space::~Row_Space()
         delete tile;
     if (next)
         delete next;
+    return;
 }
 
 void Row_Space::set_tile_in_space(Tile *ref_tile)
 {
     tile = ref_tile;
+    return;
 }
-
 
 void Row_Space::display()
 {
@@ -48,9 +51,8 @@ void Row_Space::display()
     else
         cout << " -  ";
     cout << " | \t";
-
+    return;
 }
-
 
 Row_Space *& Row_Space::get_previous()
 {
@@ -78,11 +80,13 @@ void Row_Space::traverse(Row_Space *& dest_space, Row_Space * current, int curre
        dest_space = current;
 
    traverse(dest_space, current->next, ++current_index, index);
+    return;
 }
 
 void Row_Space::set_as_bonus()
 {
     is_bonus = true;
+    return;
 }
 
 bool Row_Space::is_occupied()

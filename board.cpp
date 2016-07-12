@@ -21,7 +21,8 @@ Board::Board(int board_size): size(board_size)
     {
         head = NULL;
     }
-   bag = new TileBag(board_size);
+    bag = new TileBag(board_size);
+    return;
 }
 
 Board::Board(const Board & board)
@@ -31,6 +32,7 @@ Board::Board(const Board & board)
     //head = new Column_Space(board->head);
     copy_board_columns(head, board.head);
     bag = new TileBag(*board.bag);
+    return;
 }
 
 Board::~Board()
@@ -41,6 +43,7 @@ Board::~Board()
     //    delete dictionary;
     if(bag)
         delete bag;
+    return;
 }
 
 void Board::display()
@@ -52,6 +55,7 @@ void Board::display()
         current = current->get_next();
     }
     current = NULL;
+    return;
 }
 
 bool Board::lay_tile_on_board(Tile * tile, int x, int y)
@@ -77,7 +81,7 @@ void Board::create_spaces(Column_Space *&current, int length_remaining, int max_
     cout << "A column Space has been made" << endl;
     current->get_next()->get_previous() = current;
     create_spaces(current->get_next(), --length_remaining, max_size);
-    
+    return;
 }
 
 Row_Space * Board::traverse_to_space(int x_coord, int y_coord)
@@ -90,7 +94,7 @@ Row_Space * Board::traverse_to_space(int x_coord, int y_coord)
 
 void Board::set_premium()
 {
-    Row_Space * row;
+   Row_Space * row;
    for(int i = 0; i < size; i++)
    {
         row = traverse_to_space(i, i);
@@ -98,6 +102,7 @@ void Board::set_premium()
         row = traverse_to_space(i, (size - 1 - i));
         row->set_as_bonus();
    }
+   return;
 }
 
 Tile * Board::get_random_tile()
@@ -108,6 +113,7 @@ Tile * Board::get_random_tile()
 void Board::put_tile_back(Tile &tile)
 {
     bag->put_tile_back(tile);
+    return;
 }
 
 void Board::copy_board_columns(Column_Space *&current, Column_Space * src_head)
@@ -125,4 +131,5 @@ void Board::copy_board_columns(Column_Space *&current, Column_Space * src_head)
         current->get_next()->get_previous()= current;
     }
     current->copy_column_space(current->get_head(), src_head->get_head());
+    return;
 }
