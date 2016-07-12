@@ -22,13 +22,11 @@ void Tile::display() {
     cout << point_value;
     return;
 }
-}
 
 void Tile::set_letter(char new_letter)
 {
     letter = new_letter;
     return;
-}
 }
 
 void Tile::set_point_value(int new_value)
@@ -36,14 +34,12 @@ void Tile::set_point_value(int new_value)
     point_value = new_value;
     return;
 }
-}
 
 void Tile::copy_tile(Tile * tile) const
 {
     tile->letter = letter;
     tile->point_value = point_value;
     return;
-}
 }
 
 char Tile::get_letter()
