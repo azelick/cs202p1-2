@@ -42,6 +42,8 @@ int main()
     playing_board->display();
 
 
+    delete playing_board;
+    delete hand;
     cout << "ending program" << endl;
 
 }
