@@ -21,6 +21,7 @@ class Hand
         void display();
         void draw_new_hand(Board &board);
         void replace_tile(Board &board, char letter);
+        void place_tile_on_board(Board &board, char letter, int x, int y);
 
     protected:
         Tile **hand;

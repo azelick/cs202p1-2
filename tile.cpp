@@ -19,13 +19,8 @@ Tile::~Tile(){}
 
 //Member Functions
 void Tile::display() {
-    cout << "The letter on this tile is: "
-        << letter 
-        << endl;
-    cout << "It's point value is: "
-        << point_value
-        << endl;
-
+    cout << letter << " - ";
+    cout << point_value;
 }
 
 // Super not sure if I should have setters and getters
@@ -50,4 +45,9 @@ void Tile::copy_tile(Tile * tile) const
 char Tile::get_letter()
 {
     return letter;
+}
+
+int Tile::get_point_value()
+{
+    return point_value;
 }

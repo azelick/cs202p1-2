@@ -10,8 +10,6 @@
 
 using namespace std;
 
-enum Direction { Vertical, Horizontal };
-
 class Board
 {
     public:
@@ -24,7 +22,7 @@ class Board
         //destructor
         ~Board();
         void display();
-        bool lay_tile_on_board(Tile * tile, int x, int y, Direction dir);
+        bool lay_tile_on_board(Tile * tile, int x, int y);
         void set_premium(); 
         Row_Space * traverse_to_space(int x_coord, int y_coord);
         Tile * get_random_tile();
@@ -39,4 +37,5 @@ class Board
         bool is_in_dictionary(const char * word);
         //recursive function to create the spaces
         void create_spaces(Column_Space *&current, int length_remaining, int max_size);
+        void copy_board_columns(Column_Space *&head, Column_Space * src_head);
 };

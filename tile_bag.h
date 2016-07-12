@@ -14,6 +14,10 @@ class TileBag
         TileBag();
         //arg constructor
         TileBag(int requested_size);
+        //copy constructor
+        TileBag(const TileBag &tileBag);
+        //destructor
+        ~TileBag();
         
          //return a random tile from the 'bag'
         Tile * get_random_tile();
@@ -22,6 +26,7 @@ class TileBag
     protected:
         Tile **tiles;
         int multiplier;
+        int tiles_in_bag;
         //one unit is 20 consonants, 4 times the 5 vowels
         // and one y
         static const int unit_size = 41;

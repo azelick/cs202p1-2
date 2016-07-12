@@ -5,7 +5,7 @@
 
 Board::Board(): head(NULL), bag(NULL), size(0)
 {
-   //TODO add dictionary to initialization list for proram2 
+
 }
 
 Board::Board(int board_size): size(board_size)
@@ -21,13 +21,16 @@ Board::Board(int board_size): size(board_size)
     {
         head = NULL;
     }
-   //dictionary = new(dictionary(arg));
    bag = new TileBag(board_size);
 }
 
 Board::Board(const Board & board)
 {
     //TODO This needs to be implemented
+    size = board.size;
+    //head = new Column_Space(board->head);
+    copy_board_columns(head, board.head);
+    bag = new TileBag(*board.bag);
 }
 
 Board::~Board()
@@ -51,12 +54,12 @@ void Board::display()
     current = NULL;
 }
 
-bool Board::lay_tile_on_board(Tile * tile, int x, int y, Direction dir)
+bool Board::lay_tile_on_board(Tile * tile, int x, int y)
 {
     Row_Space * space =  traverse_to_space(x, y);
     if (space->is_occupied())
         return false;
-    space->set_tile_in_space(*tile);
+    space->set_tile_in_space(tile);
     return true;
 }
 
@@ -107,3 +110,19 @@ void Board::put_tile_back(Tile &tile)
     bag->put_tile_back(tile);
 }
 
+void Board::copy_board_columns(Column_Space *&current, Column_Space * src_head)
+{
+    if (!src_head)
+        return;
+    if (!current)
+    {
+        current = new Column_Space(*src_head);
+        current->get_previous() = NULL;
+    }
+    if (src_head->get_next())
+    {
+        current->get_next()= new Column_Space(*(src_head->get_next()));
+        current->get_next()->get_previous()= current;
+    }
+    current->copy_column_space(current->get_head(), src_head->get_head());
+}

@@ -1,9 +1,8 @@
 //
 
-
 #include "column_space.h"
 
-Column_Space::Column_Space(): head(NULL)
+Column_Space::Column_Space(): head(NULL), previous(NULL), next(NULL)
 {
 
 }
@@ -33,6 +32,8 @@ Column_Space::Column_Space(const Column_Space &column_space)
 Column_Space::~Column_Space()
 {
     delete head;
+    previous = NULL;
+    next = NULL;
 }
 
 void Column_Space::display()

@@ -1,4 +1,6 @@
 //This class contains the column linked list of spaces
+// 
+// It is a 'node' of my doubly linked list of doubly linked lists
 
 
 #include "row_space.h"
@@ -26,7 +28,7 @@ class Column_Space
         Column_Space *& get_next();
         Row_Space *& get_head();
         void traverse(Column_Space *& dest_col, Column_Space * current, int current_index, int index);
-        
+        void copy_column_space(Row_Space *&head, Row_Space * source_head);
 
     protected:
         Row_Space *head;
@@ -35,5 +37,4 @@ class Column_Space
 
 
         void create_row_spaces(Row_Space *&head, int length_remaining);
-        void copy_column_space(Row_Space *&head, Row_Space * source_head);
 };

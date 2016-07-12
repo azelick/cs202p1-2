@@ -18,7 +18,7 @@ Row_Space::Row_Space(const Row_Space &row_space): is_bonus(false)
 {
     previous = row_space.previous;
     next = row_space.next;
-    tile->copy_tile(row_space.tile);
+    tile = new Tile(row_space.tile->get_letter(), row_space.tile->get_point_value());
 }
 
 Row_Space::~Row_Space()
@@ -29,9 +29,9 @@ Row_Space::~Row_Space()
         delete next;
 }
 
-void Row_Space::set_tile_in_space(Tile &ref_tile)
+void Row_Space::set_tile_in_space(Tile *ref_tile)
 {
-    *tile = ref_tile;
+    tile = ref_tile;
 }
 
 
@@ -41,13 +41,12 @@ void Row_Space::display()
     if(tile != NULL)
         tile->display();
     else
-        cout << " ";
+        cout << "  -  ";
 
     if(is_bonus)
-        cout << "- *";
+        cout << " - *";
     else
-        cout << "-  ";
-    //TODO the below line is only for testing
+        cout << " -  ";
     cout << " | \t";
 
 }

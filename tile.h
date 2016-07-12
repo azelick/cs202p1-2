@@ -17,6 +17,7 @@ class Tile
         void set_letter(char new_letter);
         void set_point_value(int new_value);
         char get_letter();
+        int get_point_value();
         void copy_tile(Tile * tile) const;
 
 	protected:

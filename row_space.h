@@ -18,7 +18,7 @@ class Row_Space
         // destructor
         ~Row_Space();
 
-        void set_tile_in_space(Tile &ref_tile);
+        void set_tile_in_space(Tile *ref_tile);
         void display();
         //TODO Do I want to have an is_bonus() function?
         //bool is_bonus();
