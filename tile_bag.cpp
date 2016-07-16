@@ -15,10 +15,11 @@ TileBag::TileBag(int requested_size)
     tiles_in_bag = (multiplier*unit_size);
     cout << tiles_in_bag << endl;
 
-    tiles = new Tile*[tiles_in_bag];
+    tiles = new Tile*[tiles_in_bag + 1];
     cout << sizeof(tiles) << endl;
-    for (int i = 0; i < tiles_in_bag; i++)
+    for (int i = 0; i < tiles_in_bag; ++i)
         tiles[i] = NULL;
+    tiles[tiles_in_bag + 1] = NULL;
     populate();
     return;
 }
@@ -28,7 +29,7 @@ TileBag::TileBag(const TileBag &tileBag)
    multiplier = tileBag.multiplier;
    tiles_in_bag = multiplier*unit_size;
    tiles = new Tile*[tiles_in_bag];
-   for( int i = 0; i < tiles_in_bag; i++)
+   for( int i = 0; i < tiles_in_bag; ++i)
    {
        tiles[i] = new Tile(*(tileBag.tiles[i]));
    }
@@ -39,7 +40,7 @@ TileBag::~TileBag()
 {
     if(tiles)
     {
-        for(int i = 0; i < tiles_in_bag; i++)
+        for(int i = 0; i < tiles_in_bag; ++i)
             delete tiles[i];
     }
     delete tiles;
@@ -59,28 +60,28 @@ void TileBag::populate()
            for (int v = 0; v < 21; v++)
            {
                tiles[i] = new Tile(consonants[v], 2);
-               i++;
+               ++i;
            }
            //add vowels, each is worth 1 point
            for (int v = 0; v < 5; v++)
            {
                 tiles[i] = new Tile(vowels[v], 1);
-                i++;
+                ++i;
            }
            for (int v = 0; v < 5; v++)
            {
                 tiles[i] = new Tile(vowels[v], 1);
-                i++;
+                ++i;
            }
            for (int v = 0; v < 5; v++)
            {
                 tiles[i] = new Tile(vowels[v], 1);
-                i++;
+                ++i;
            }
            for (int v = 0; v < 5; v++)
            {
                 tiles[i] = new Tile(vowels[v], 1);
-                i++;
+                ++i;
            }
            t++;
            //TODO shuffle isn't working yet, but wasn't explicitly a requirement of program 1
@@ -94,7 +95,7 @@ Tile * TileBag::get_random_tile()
 {
     int i = 0;
     while(tiles[i] == NULL)
-        i++;
+        ++i;
     Tile * temp = tiles[i];
     tiles[i] = NULL;
     return temp;
@@ -104,7 +105,7 @@ Tile * TileBag::get_random_tile()
 {
     int i = 0;
     while(tiles[i] != NULL)
-        i++;
+        ++i;
     *tiles[i] = tile;
     return;
 }
