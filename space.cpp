@@ -20,17 +20,14 @@ Space::~Space()
 {
     //TODO This might seg fault.
     if (previous)
-    {
-        delete previous;
         previous = NULL;
         //delete previous;
-    }
     if (next)
-    {
         delete next;
-        next = NULL;
-    }
 }
+
+void Space::display()
+{}
 
 Space *&Space::get_previous()
 {

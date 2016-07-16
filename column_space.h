@@ -5,14 +5,14 @@
 // each Column space contains it's next and previous, along with a pointer 
 // to a row space
 
-#include "space.h"
+
 #include "row_space.h"
 
 #pragma once
 
 using namespace std;
 
-class Column_Space: public Space
+class Column_Space
 {
     public:
         //default constructor
@@ -29,8 +29,8 @@ class Column_Space: public Space
         //returns the Column_Space at a given index
         Column_Space * col_space_at_index(int index);
         //accessor functions that access protected data
-        //Column_Space *& get_previous();
-        //Column_Space *& get_next();
+        Column_Space *& get_previous();
+        Column_Space *& get_next();
         Row_Space *& get_head();
         //recursive function called by col_space_at_index()
         void traverse(Column_Space *& dest_col, Column_Space * current, int current_index, int index);
@@ -39,8 +39,8 @@ class Column_Space: public Space
 
     protected:
         Row_Space *head;
-        //Column_Space *previous;
-        //Column_Space *next;
+        Column_Space *previous;
+        Column_Space *next;
 
         // used in the constructor to create the rows.
         void create_row_spaces(Row_Space *&head, int length_remaining);

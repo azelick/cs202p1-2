@@ -8,13 +8,12 @@
 // messed with.
 
 
-#include "space.h"
 #include "tile.h"
 #pragma once
 
 using namespace std;
 
-class Row_Space: public Space
+class Row_Space
 {
     public:
         //default constructor
@@ -40,13 +39,13 @@ class Row_Space: public Space
         void traverse(Row_Space *& dest_space, Row_Space * current, int current_index, int index);
 
         //wrapper functions to provide the previous and next pointers
-        //Row_Space *& get_previous();
-        //Row_Space *& get_next();
+        Row_Space *& get_previous();
+        Row_Space *& get_next();
 
     protected:
         Tile *tile;
         bool is_bonus;
 
-        //Row_Space * previous;
-        //Row_Space * next;
+        Row_Space * previous;
+        Row_Space * next;
 };

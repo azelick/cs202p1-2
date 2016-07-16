@@ -21,7 +21,7 @@ class Space
         // destructor
         virtual ~Space();
 
-        virtual void display() = 0;
+        virtual void display();
         virtual Space *&get_previous();
         virtual Space *&get_next();
 
