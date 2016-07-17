@@ -3,6 +3,7 @@
 #import "hand.h"
 #import "error.h"
 #import <iostream>
+#import <cstring>
 
 using namespace std;
 
@@ -15,11 +16,11 @@ class User_Player: public Hand
         //copy constructor
         User_Player(const User_Player &user_player);
         //argument constructor
-        User_Player(char * name, Board &board);
+        User_Player(char * name, Board &board) throw(NULL_NAME);
         ~User_Player(); 
 
         void display();
-        void query_dictionary(const Board &board);
+        bool query_dictionary(const Board &board);
 
     protected:
         int score;

@@ -4,15 +4,10 @@
 
 Dictionary::Dictionary()
 {
-    root = NULL;
+    //this will create our dummy node
+    root = new Node();
+    fill_tree_from_file();
 }
-
-//Dictionary::Dictionary(  )
-//{
-
-
-//}
-
 
 Dictionary::Dictionary(const Dictionary &dictionary)
 {
@@ -36,17 +31,38 @@ void Dictionary::copy_tree(Node * &root, Node *source_root)
 
 }
 
-void Dictionary::fill_tree()
-{
-
-}
-
-bool Dictionary::does_contain(char *word)
-{
-    return root->contains(word);
-}
-
 void Dictionary::display()
 {
     root->display();
 }
+
+void Dictionary::fill_tree_from_file()
+{
+    if (!root)
+        root = new Node();
+
+    int file_size;
+    ifstream reader;
+    reader.open("dict.txt", ifstream::in);
+
+    //to aboid using the eof flag, I'm including the number of lines in the file on the first line
+    reader >> file_size;
+
+    reader.ignore(100, '\n');
+
+    for(int i = 0; i < file_size; ++i)
+    {
+        char * temp;
+        char from_file[100];
+        reader.get(from_file, 100, '\n');
+        reader.ignore(100, '\n');
+
+        temp = new char[strlen(from_file) + 1];
+        strcpy(temp, from_file);
+
+        root->insert_new_word(temp);
+    }
+    reader.close();
+}
+
+

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "node.h"
+#include <fstream>
 
 using namespace std;
 
@@ -15,9 +16,6 @@ class Dictionary
     public:
         // Default constructor
         Dictionary();
-        // TODO
-        // argument constructor
-        //Dictionary( );
         // copy constructor
         Dictionary(const Dictionary &dictionary);
         // Destructor
@@ -27,7 +25,7 @@ class Dictionary
         void copy_tree(Node * &root, Node *source_root);
 
         // populates the tree from file
-        void fill_tree();
+        void fill_tree_from_file();
 
         //check to see if the dictionary contains the provided word
         bool does_contain(char *word);
@@ -39,5 +37,4 @@ class Dictionary
     protected:
         // the root of the dictionary's binary search tree
         Node *root;
-
 };

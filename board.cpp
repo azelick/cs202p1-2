@@ -3,7 +3,7 @@
 
 #include "board.h"
 
-Board::Board(): head(NULL), bag(NULL), size(0)
+Board::Board(): head(NULL), dictionary(NULL), bag(NULL), size(0)
 {
 
 }
@@ -22,6 +22,7 @@ Board::Board(int board_size): size(board_size)
         head = NULL;
     }
     bag = new TileBag(board_size);
+    dictionary = new Dictionary();
     return;
 }
 
@@ -132,4 +133,15 @@ void Board::copy_board_columns(Column_Space *&current, Column_Space * src_head)
     }
     current->copy_column_space(current->get_head(), src_head->get_head());
     return;
+}
+
+bool Board::check_word_is_valid(char * word) const
+{
+   //TODO 
+   return false;
+}
+
+void Board::display_dictionary()
+{
+    dictionary->display();
 }

@@ -32,10 +32,12 @@ class Board
         Tile * get_random_tile();
         //put a tile back into the tile bag
         void put_tile_back(Tile &tile);
+        bool check_word_is_valid(char * word) const;
+        void display_dictionary();
 
     protected:
         Column_Space * head;
-        //Dictionary * dictionary;
+        Dictionary * dictionary;
         TileBag * bag;
         int size;
 

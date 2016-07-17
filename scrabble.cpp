@@ -12,6 +12,11 @@ int main()
     
     Board *playing_board = new Board(10);
     cin.get();
+    
+    cout << "Here is the dictionary: " << endl;
+    playing_board->display_dictionary();
+
+    cin.get();
 
     playing_board->set_premium();
     Row_Space * space = playing_board->traverse_to_space(4,4);
