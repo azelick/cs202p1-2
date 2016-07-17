@@ -154,7 +154,8 @@ int Node::check_balance_factor()
 void Node::balance_function(Node *&root)
 {
     int balance_factor = check_balance_factor();
-
+    cout << "balance_factor at : " << root->word 
+        << " is " << balance_factor << endl;
     if(balance_factor == 2)
     {
         int left_factor = left->check_balance_factor();
@@ -202,6 +203,7 @@ void Node::rotate_left(Node *&root)
     root = root->right;
     right = root->left;
     root->left = this;
+    cout << "rotation left";
 }
 
 void Node::rotate_right(Node *&root)
@@ -209,4 +211,5 @@ void Node::rotate_right(Node *&root)
     root = root->left;
     left = root->right;
     root->right = this;
+    cout << "rotation right";
 }
