@@ -2,12 +2,12 @@
 
 #include "node.h"
 
-Node::Node(): word(NULL), parent(NULL), left(NULL), right(NULL)
+Node::Node(): word(NULL), height(0), left(NULL), right(NULL)
 {
     
 }
 
-Node::Node(char * new_word): parent(NULL), left(NULL), right(NULL)
+Node::Node(char * new_word): height(0), left(NULL), right(NULL)
 {
     word = new char[strlen(new_word) + 1];
     strcpy(word, new_word);
@@ -31,14 +31,7 @@ void Node::display()
 {
     if(!word)
         return;
-    int i = 0;
-    while(word[i] != '\0')
-    {
-        cout << word[i];
-        ++i;
-    }
-    cout << endl;
-
+    cout << word << endl;
     if(left) 
         left->display();
     if(right)
@@ -98,31 +91,23 @@ void Node::insert(char *new_word, Node *&root)
 {
     if(!root)
     {
+        //we're at a leaf
         root = new Node(new_word);
-        root->left = NULL;
-        root->right = NULL;
-        return;
+        cout << "insertion has occurred" << endl; 
     }
     else
     {
-        int compare = strcmp(root->word, new_word);
+        int compare = strcmp(new_word, root->word);
         if (compare < 0)
         {
-            if(!left)
-                left = new Node(new_word);
-            else
-                left->insert(new_word, root->left);
+            root->left->insert(new_word, root->left);
         }
         if (compare >= 0)
         {
-            if(!right)
-                right = new Node(new_word);
-            else
-                right->insert(new_word, root->right);
+            root->right->insert(new_word, root->right);
         }
     }
-    root->balance_function(root);
-   
+    balance_function(root);
 }
 
 bool Node::find(char * matcher_word)
@@ -141,75 +126,90 @@ bool Node::find(char * matcher_word)
     return right->find(matcher_word);
 }
 
-int Node::check_balance_factor()
+int Node::calculate_height(Node *root)
 {
-    int balance_factor = 0;
-    if(left)
-        balance_factor += left->check_balance_factor() + 1;
-    if(right)
-        balance_factor -= right->check_balance_factor() - 1;
-    return balance_factor;    
+    if (!root)
+        return 0;
+    root->height = max(calculate_height(root->left), calculate_height(root->right)) + 1;
+    return root->height;
+}
+
+int Node::get_balance(Node *root)
+{
+    if(root)
+        return calculate_height(root->left) - calculate_height(root->right);
+    return 0;
 }
 
 void Node::balance_function(Node *&root)
 {
-    int balance_factor = check_balance_factor();
+    if(!root)
+        return;
+
+    int balance_factor = get_balance(root);
+
     cout << "balance_factor at : " << root->word 
         << " is " << balance_factor << endl;
+
     if(balance_factor == 2)
     {
-        int left_factor = left->check_balance_factor();
-
+        int left_balance = get_balance(root->left);
         //left has more than right
         //so left should become root
-        if(left_factor == 0)
+        if(left_balance == 0)
         {
             cout << "this shouldn't happen, if it does we have a problem" << endl;
 
         }
-        if(left_factor == 1)
+        if(left_balance == 1)
         {
-            rotate_right(root);
+            rotate_clockwise(root);
         }
-        if(left_factor == -1)
+        if(left_balance == -1)
         {
-            left->rotate_left(left);
-            rotate_right(root);
+            rotate_counter_clockwise(root->left);
+            rotate_clockwise(root);
         }
     }
     if(balance_factor == -2)
     {
+        int right_balance = get_balance(root->right);
         //right has more than left
-        int right_factor = right->check_balance_factor();
-
-        if(right_factor == 0)
+        if(right_balance == 0)
         {
             cout << "this shouldn't happen, if it does we have a problem" << endl;
         }
-        if(right_factor == 1)
+        if(right_balance == 1)
         {
-            right->rotate_right(right);
-            rotate_left(root);
+            rotate_clockwise(root->right);
+            rotate_counter_clockwise(root);
         }
-        if(right_factor == -1)
+        if(right_balance == -1)
         {
-            rotate_left(root);
+            rotate_counter_clockwise(root);
         }
     } 
+    return;
 }
 
-void Node::rotate_left(Node *&root)
+void Node::rotate_counter_clockwise(Node *&root)
 {
-    root = root->right;
-    right = root->left;
-    root->left = this;
+    Node * temp = root;
+    root = temp->right;
+    temp->right = root->left;
+    root->left = temp;
+    calculate_height(root);
+    calculate_height(temp);
     cout << "rotation left";
 }
 
-void Node::rotate_right(Node *&root)
+void Node::rotate_clockwise(Node *&root)
 {
-    root = root->left;
-    left = root->right;
-    root->right = this;
+    Node * temp = root;
+    root = temp->left;
+    temp->left = root->right;
+    root->right = temp;
+    calculate_height(root);
+    calculate_height(temp);
     cout << "rotation right";
 }

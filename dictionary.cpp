@@ -33,7 +33,7 @@ void Dictionary::copy_tree(Node * &root, Node *source_root)
 
 void Dictionary::display()
 {
-    root->display();
+    root->get_left()->display();
 }
 
 void Dictionary::fill_tree_from_file()

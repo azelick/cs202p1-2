@@ -31,8 +31,8 @@ class Node
 
     protected:
         char *word;
+        int height;
 
-        Node *parent;
         Node *left;
         Node *right;
 
@@ -41,9 +41,10 @@ class Node
         //recursive function to find, returns true if found
         bool find(char *word);
 
-        int check_balance_factor();
-        void rotate_left(Node *&root);
-        void rotate_right(Node *&root);
+        int get_balance(Node *root);
+        int calculate_height(Node *root);
+        void rotate_counter_clockwise(Node *&root);
+        void rotate_clockwise(Node *&root);
         void balance_function(Node *&);
 
 };
