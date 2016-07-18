@@ -21,10 +21,12 @@ class User_Player: public Hand
 
         void display();
         bool query_dictionary(const Board &board);
+        char * get_user_input();
 
     protected:
         int score;
         char * name;
 
-
+        //check if user's input is valid
+        bool again(char * response);
 };
