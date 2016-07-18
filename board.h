@@ -32,7 +32,7 @@ class Board
         Tile * get_random_tile();
         //put a tile back into the tile bag
         void put_tile_back(Tile &tile);
-        bool check_word_is_valid(char * word) const;
+        bool check_word_is_valid(const char * word) const;
         void display_dictionary();
 
     protected:
@@ -41,8 +41,6 @@ class Board
         TileBag * bag;
         int size;
 
-        //TODO Commented out for program 1
-        //bool is_in_dictionary(const char * word);
         //recursive function to create the spaces
         void create_spaces(Column_Space *&current, int length_remaining, int max_size);
         //recursive function called by the copy constructor

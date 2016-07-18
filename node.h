@@ -39,7 +39,7 @@ class Node
         //recursive function to insert into tree
         void insert(char *word, Node *&);
         //recursive function to find, returns true if found
-        bool find(char *word);
+        bool find(Node * root, char *word);
 
         int get_balance(Node *root);
         int calculate_height(Node *root);

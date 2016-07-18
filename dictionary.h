@@ -8,6 +8,7 @@
 #include <iostream>
 #include "node.h"
 #include <fstream>
+#include <cctype>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ class Dictionary
         void fill_tree_from_file();
 
         //check to see if the dictionary contains the provided word
-        bool does_contain(char *word);
+        bool does_contain(const char *word);
         // TODO Don't know if I want the dictionary to be able
         // to oubput the entire tree or not...
         // Depends on the size of the data?

@@ -65,4 +65,14 @@ void Dictionary::fill_tree_from_file()
     reader.close();
 }
 
-
+bool Dictionary::does_contain(const char *word)
+{
+    int i = 0;
+    char * mutable_word = new char[strlen(word) + 1];
+    while(word[i] != '\0')
+    {
+        mutable_word[i] = toupper(word[i]);
+        ++i;
+    }
+    return root->find_word(mutable_word);
+}

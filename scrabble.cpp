@@ -18,6 +18,12 @@ int main()
 
     cin.get();
 
+    char * test_word = new char[2];
+    test_word[0] = 'A';
+    test_word[1] = '\0';
+    if (playing_board->check_word_is_valid(test_word))
+        cout << "The word '" << test_word << "' is in the dictionary" << endl;
+
     playing_board->set_premium();
     Row_Space * space = playing_board->traverse_to_space(4,4);
     space->display();

@@ -31,9 +31,9 @@ void Node::display()
 {
     if(!word)
         return;
-    cout << word << endl;
     if(left) 
         left->display();
+    cout << word << endl;
     if(right)
         right->display();
 }
@@ -84,7 +84,9 @@ bool Node::find_word(char *word)
     //we have no tree
     if (!left)
         return false;
-    return left->find(word);
+    //we're using left since we should only call this function
+    //on the dummy root node of the tree
+    return find(left, word);
 }
 
 void Node::insert(char *new_word, Node *&root)
@@ -110,20 +112,18 @@ void Node::insert(char *new_word, Node *&root)
     balance_function(root);
 }
 
-bool Node::find(char * matcher_word)
+bool Node::find(Node * root, char * matcher_word)
 {
-    int comparison = strcmp(word, matcher_word);
+    if(!root)
+        return false;
+    int comparison = strcmp(root->word, matcher_word);
     if(comparison == 0)
         return true;
-    if(comparison < 0)
+    if(comparison > 0)
     {
-        if (!left)
-            return false;
-        return left->find(matcher_word);
+        return find(root->left, matcher_word);
     }
-    if(!right)
-        return false;
-    return right->find(matcher_word);
+    return find(root->right, matcher_word);
 }
 
 int Node::calculate_height(Node *root)

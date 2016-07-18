@@ -28,7 +28,6 @@ Board::Board(int board_size): size(board_size)
 
 Board::Board(const Board & board)
 {
-    //TODO This needs to be implemented
     size = board.size;
     //head = new Column_Space(board->head);
     copy_board_columns(head, board.head);
@@ -135,10 +134,11 @@ void Board::copy_board_columns(Column_Space *&current, Column_Space * src_head)
     return;
 }
 
-bool Board::check_word_is_valid(char * word) const
+bool Board::check_word_is_valid(const char * word) const
 {
-   //TODO 
-   return false;
+    if(!dictionary)
+        return false;
+   return dictionary->does_contain(word);
 }
 
 void Board::display_dictionary()
