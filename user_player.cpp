@@ -44,9 +44,8 @@ bool User_Player::query_dictionary(const Board &board)
    cin.ignore(100, '\0');
    char * response = new char[strlen(temp) + 1];
    strcpy(response, temp);
-    board.check_word_is_valid(response);
+   return board.check_word_is_valid(response);
 
-    
     //TODO When querying the dictionary, instead of transferring a bunch of tiles, we can just
     //turn the tiles into a char array and pass that
     //

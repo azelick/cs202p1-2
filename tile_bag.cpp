@@ -85,7 +85,7 @@ void TileBag::populate()
            }
            t++;
            //TODO shuffle isn't working yet, but wasn't explicitly a requirement of program 1
-           //shuffle_tiles();
+           shuffle_tiles();
        }
     
        return;
@@ -121,6 +121,15 @@ void TileBag::shuffle_tiles()
 {
     if(!tiles)
         return;
-   random_shuffle(tiles[0], tiles[(unit_size*multiplier)-1 ]);
+    int mult = tiles_in_bag*3;
+    for(int i = 0; i < mult; ++i)
+    {
+        int index1 = rand()%tiles_in_bag;
+        int index2 = rand()%tiles_in_bag;
+        Tile *temp = tiles[index1];
+        tiles[index1] = tiles[index2];
+        tiles[index2] = temp;
+    }
+
    return;
 }

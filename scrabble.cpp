@@ -4,11 +4,15 @@
 
 #include <iostream>
 #include "hand.h"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 int main()
 {
+    //gives us random numbers for the shuffle
+    srand(time(NULL));
     
     Board *playing_board = new Board(10);
     cin.get();
