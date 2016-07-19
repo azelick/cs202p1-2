@@ -138,3 +138,62 @@ void Hand::display_possibles_list()
         current = current->next;
     }
 }
+
+void Hand::groom_for_playable_words()
+{
+    remove_non_matches(head, head);
+}
+
+void Hand::remove_non_matches(Dict_Word *&previous, Dict_Word *&current)
+{
+    if(!current)
+        return;
+
+    if(!playable_from_hand(current->word))
+    {
+        Dict_Word *temp = current;
+        //case for only one in list
+        if(previous == current)
+        {
+            current = temp->next;
+        }
+        else
+        {
+            current = previous;
+            current->next = temp->next;
+            temp->next = NULL;
+        }
+       if(temp->word)
+           delete temp->word;
+       delete temp;
+       remove_non_matches(current, current);
+    }
+    else
+        remove_non_matches(current, current->next);
+}
+
+bool Hand::playable_from_hand(char * word)
+{
+    //do a contains check for each letter in the word
+    //We'll have an issue if the word requires double letters but... oh well
+
+    if(!word)
+        return false;
+    bool does_match = true;
+    int size = strlen(word);
+    for(int i = 0; i < size; ++i)
+    {
+        if(!strchr(get_hand(), word[i]))
+            does_match = false;
+    }
+    return does_match;
+}
+
+char * Hand::get_hand()
+{
+    char * temp = new char[8];
+    for(int i = 0; i < 7; ++i)
+        temp[i] = hand[i]->get_letter();
+    temp[8] = '\0';
+    return temp;
+}

@@ -49,8 +49,8 @@ TileBag::~TileBag()
 
 void TileBag::populate()
 {
-        char consonants[21] = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'};
-        char vowels[5] = {'a', 'e', 'i', 'o', 'u'};
+        char consonants[21] = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'R', 'V', 'W', 'X', 'Y', 'Z'};
+        char vowels[5] = {'A', 'E', 'I', 'O', 'U'};
 
         int i = 0;
         int t = 0;
@@ -84,7 +84,6 @@ void TileBag::populate()
                 ++i;
            }
            t++;
-           //TODO shuffle isn't working yet, but wasn't explicitly a requirement of program 1
            shuffle_tiles();
        }
     

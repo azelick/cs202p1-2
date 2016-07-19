@@ -81,8 +81,8 @@ bool Dictionary::does_contain(const char *word)
 Dict_Word * Dictionary::words_with_letter(const char letter)
 {
     Dict_Word * head = NULL;
-
-    root->find_words(head, root->get_left(), letter);
+    char cap_letter = toupper(letter);
+    root->find_words(head, root->get_left(), cap_letter);
     return head;
 }
 
