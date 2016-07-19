@@ -34,6 +34,7 @@ class Board
         void put_tile_back(Tile &tile);
         bool check_word_is_valid(const char * word) const;
         void display_dictionary();
+        Dict_Word * find_words_with_letter(const char letter);
 
     protected:
         Column_Space * head;

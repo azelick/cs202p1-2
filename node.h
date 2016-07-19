@@ -2,6 +2,7 @@
 
 
 #include<iostream>
+#include "dict_word.h"
 #pragma once
 
 using namespace std;
@@ -26,8 +27,11 @@ class Node
 
         //wrapper function to insert()
         bool insert_new_word(char *word);
-        //wrapper function to find()
+        //wrapper function to check if word in in dict
         bool find_word(char *word);
+        //recursive function the return LLL of all words in
+        //dict that contain given letter
+        void find_words(Dict_Word *&tail, Node *root, const char letter);
 
     protected:
         char *word;

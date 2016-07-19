@@ -9,6 +9,7 @@
 #include "node.h"
 #include <fstream>
 #include <cctype>
+#include "dict_word.h"
 
 using namespace std;
 
@@ -35,7 +36,13 @@ class Dictionary
         // Depends on the size of the data?
         void display();
 
+        Dict_Word * words_with_letter(const char);
+
+
+
     protected:
         // the root of the dictionary's binary search tree
         Node *root;
+
+        //Dict_Word * find_words(Dict_Word *&tail, Node * root, const char letter);
 };

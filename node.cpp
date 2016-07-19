@@ -213,3 +213,39 @@ void Node::rotate_clockwise(Node *&root)
     calculate_height(temp);
     cout << "rotation right";
 }
+
+void Node::find_words(Dict_Word *&head, Node * root, const char letter)
+{
+   if(!root)
+   {
+       return;
+   }
+   
+   //check each letter in word to see if it matches
+   int size = strlen(root->word);
+   for(int i = 0; i < size; ++i)
+   {
+       if(root->word[i] == letter)
+       {
+           if(!head)
+           {
+               //add to LLL
+               head = new Dict_Word();
+               head->word = new char[strlen(root->word) + 1];
+               strcpy(head->word, root->word);
+               head -> next = NULL;
+           }
+           else
+           {
+               Dict_Word * temp = new Dict_Word();
+               temp->word = new char[strlen(root->word) + 1];
+               strcpy(temp->word, root->word);
+               temp-> next = head;
+               head = temp;
+           }
+       }
+   }
+   find_words(head, root->left, letter);
+   find_words(head, root->right, letter);
+}
+

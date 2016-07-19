@@ -2,7 +2,7 @@
 
 #import "hand.h"
 
-Hand::Hand(): hand(NULL)
+Hand::Hand(): hand(NULL), head(NULL)
 {
 
 }
@@ -22,6 +22,7 @@ Hand::Hand(const Hand & ref_hand)
         hand[i] = ref_hand.hand[i];
     }
     hand[8] = NULL;
+    copy_list(head, ref_hand.head);
     return;
 }
 
@@ -33,6 +34,7 @@ Hand::~Hand()
             delete hand[i];
     }
     delete hand;
+    delete_all(head);
     return;
 }
 
@@ -98,4 +100,41 @@ void Hand::place_tile_on_board(Board &board, char letter, int x, int y)
     hand[i] = NULL;
     board.lay_tile_on_board(tile, x, y);
     return;
+}
+
+void Hand::set_dict_match_list(Dict_Word * new_head)
+{
+    head = new_head;
+}
+
+void Hand::copy_list(Dict_Word *& head, Dict_Word * src_head)
+{
+    if(!src_head)
+    {
+        head = NULL;
+        return;
+    }
+    head = new Dict_Word();
+    head->word = new char[strlen(src_head->word) + 1];
+    strcpy(head->word, src_head->word);
+    copy_list(head->next, src_head->next);
+}
+
+void Hand::delete_all(Dict_Word *&current)
+{
+   if(!current)
+       return;
+   delete_all(current->next);
+   delete current;
+   return;
+}
+
+void Hand::display_possibles_list()
+{
+    Dict_Word *current = head;
+    while(current != NULL)
+    {
+        cout << current->word << endl;
+        current = current->next;
+    }
 }

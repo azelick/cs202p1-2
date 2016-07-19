@@ -9,6 +9,7 @@
 #include <iostream>
 #include "tile.h"
 #include "board.h"
+#include "dict_word.h"
 
 using namespace std;
 
@@ -31,13 +32,20 @@ class Hand
         void replace_tile(Board &board, char letter);
         //place the given tile on the board
         void place_tile_on_board(Board &board, char letter, int x, int y);
+        void set_dict_match_list(Dict_Word * new_head);
+        void display_possibles_list();
 
     protected:
         Tile **hand;
+
+        //list of possible word from player's hand
+        Dict_Word *head;
 
         //wrapper function for board function
         Tile * get_tile_from_bag(Board &board);
         //wrapper function for board function
         void put_tile_back(Board &board, Tile &tile);
+        void delete_all(Dict_Word *&current);
+        void copy_list(Dict_Word *& head, Dict_Word * src_head);
 
 };

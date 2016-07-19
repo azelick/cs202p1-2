@@ -145,3 +145,8 @@ void Board::display_dictionary()
 {
     dictionary->display();
 }
+
+Dict_Word * Board::find_words_with_letter(const char letter)
+{
+    return dictionary->words_with_letter(letter);
+}

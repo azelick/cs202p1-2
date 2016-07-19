@@ -76,3 +76,14 @@ bool Dictionary::does_contain(const char *word)
     }
     return root->find_word(mutable_word);
 }
+
+
+Dict_Word * Dictionary::words_with_letter(const char letter)
+{
+    Dict_Word * head = NULL;
+
+    root->find_words(head, root->get_left(), letter);
+    return head;
+}
+
+
