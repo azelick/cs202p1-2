@@ -3,11 +3,14 @@
 
 
 #include <iostream>
-#include "hand.h"
+#include "user_player.h"
+#include "ai_player.h"
 #include <cstdlib>
 #include <ctime>
 
 using namespace std;
+
+bool again();
 
 int main()
 {
@@ -15,46 +18,43 @@ int main()
     srand(time(NULL));
     
     Board *playing_board = new Board(10);
-    cin.get();
-    
-    //cout << "Here is the dictionary: " << endl;
-    //playing_board->display_dictionary();
-
-    cin.get();
-
-    char * test_word = new char[2];
-    test_word[0] = 'A';
-    test_word[1] = '\0';
-    //if (playing_board->check_word_is_valid(test_word))
-    //    cout << "The word '" << test_word << "' is in the dictionary" << endl;
-
-
     playing_board->set_premium();
-//    Row_Space * space = playing_board->traverse_to_space(4,4);
-//    space->display();
-//    cout << endl;
-    //playing_board->display_dictionary();
-    cin.get();
-
     playing_board->display();
     cin.get();
-
-    Hand * hand = new Hand(*playing_board);
-    cout << "This is your hand: " << endl;
-    hand->display();
     
-    cin.get();
-    cout << "before grooming: " << endl;
-    char first_letter = (hand->get_hand())[0];
-    Dict_Word * list = playing_board->find_words_with_letter(first_letter);
-    hand->set_dict_match_list(list);
-    hand->display_possibles_list();
+    Hand *player_a;
+    Hand *player_u;
 
-    cout << "After grooming: " << endl;
-    cin.get();
-    hand->groom_for_playable_words();
-    hand->display_possibles_list();
+    cout << "Welcome to scrabble! " << endl;
+   cout << "Please enter a player name: ";
+   char input[100];
+   cin.get(input, 100, '\n');
+   cin.ignore(100, '\n');
+
+   player_u = new User_Player(input, playing_board);
+   player_a= new Ai_Player("AI man", playing_board);
+
+    cout << "This is the AI hand: " << endl;
+    player_a->display();
     
+    cout << "This is the player's hand " << endl;
+
+    bool player_wins = false;
+    do
+    {
+        player_u->make_play(playing_board);
+        player_a->make_play(playing_board);
+
+        if(player_u->get_score() > 5 || player_a->get_score() > 5)
+        {player_wins = true;}
+    }while(!player_wins && again());
+
+
+
+    cin.get();
+    player_a->make_play(playing_board);
+
+    //Coordinate loc = playing_board->find_playable_location(hand->head->word);
 
 //    hand->place_tile_on_board(*playing_board, input, x-1, y-1);
 
@@ -62,8 +62,20 @@ int main()
 
 
     delete playing_board;
-    delete hand;
     cout << "ending program" << endl;
 
 }
 
+bool again()
+{
+    cout << "Would you like to concede? (Y), (N) " << endl;
+    char response;
+    cin >> response;
+    cin.ignore(100, '\n');
+    
+    response = toupper(response);
+
+    if(response == 'Y')
+        return false;
+    return true;
+}

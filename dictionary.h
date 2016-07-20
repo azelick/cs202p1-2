@@ -9,7 +9,7 @@
 #include "node.h"
 #include <fstream>
 #include <cctype>
-#include "dict_word.h"
+#include "structs.h"
 
 using namespace std;
 

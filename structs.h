@@ -8,3 +8,11 @@ struct Dict_Word
     char * word;
     Dict_Word * next;
 };
+
+struct Coordinate
+{
+    int x;
+    int y;
+    // for direction, 1 is horizontal, 0 is down
+    int direction;
+};

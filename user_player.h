@@ -16,16 +16,15 @@ class User_Player: public Hand
         //copy constructor
         User_Player(const User_Player &user_player);
         //argument constructor
-        User_Player(char * name, Board &board) throw(NULL_NAME);
+        User_Player(char * name, Board *&board);
         ~User_Player(); 
 
-        void display();
-        bool query_dictionary(const Board &board);
+        bool query_dictionary(const Board *&board);
         char * get_user_input();
+        void make_play(Board *&board); //TODO
+        bool concede(); //TODO
 
     protected:
-        int score;
-        char * name;
 
         //check if user's input is valid
         bool again(char * response);

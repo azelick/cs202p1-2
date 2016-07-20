@@ -2,7 +2,7 @@
 
 
 #include<iostream>
-#include "dict_word.h"
+#include "structs.h"
 #pragma once
 
 using namespace std;

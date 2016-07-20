@@ -35,6 +35,7 @@ class Board
         bool check_word_is_valid(const char * word) const;
         void display_dictionary();
         Dict_Word * find_words_with_letter(const char letter);
+        Coordinate find_playable_location(char * word);
 
     protected:
         Column_Space * head;
@@ -46,4 +47,7 @@ class Board
         void create_spaces(Column_Space *&current, int length_remaining, int max_size);
         //recursive function called by the copy constructor
         void copy_board_columns(Column_Space *&head, Column_Space * src_head);
+        bool is_contiguous_available(Coordinate &location, int length);
+        Coordinate find_empty_space();
+
 };

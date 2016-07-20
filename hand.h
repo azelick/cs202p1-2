@@ -9,7 +9,7 @@
 #include <iostream>
 #include "tile.h"
 #include "board.h"
-#include "dict_word.h"
+#include "structs.h"
 #include <cstring>
 
 using namespace std;
@@ -20,7 +20,7 @@ class Hand
         //default constructor
         Hand();
         //arg constructor
-        Hand(Board &board);
+        Hand(const char *new_name, Board *&board);
         //copy constructor
         Hand(const Hand & hand);
         //destructor
@@ -28,27 +28,32 @@ class Hand
 
         void display();
         //draw a fresh 7 cards
-        void draw_new_hand(Board &board);
+        void draw_new_hand(Board *&board);
         //replace the given tile with one from the bag
-        void replace_tile(Board &board, char letter);
+        void replace_tile(Board *&board, char letter);
         //place the given tile on the board
-        void place_tile_on_board(Board &board, char letter, int x, int y);
+        void place_tile_on_board(Board *&board, char letter, int x, int y);
         void set_dict_match_list(Dict_Word * new_head);
         void display_possibles_list();
         void groom_for_playable_words();
         bool playable_from_hand(char * word);
         char * get_hand();
+        //pure virtual function
+        virtual void make_play(Board *&board)=0;
+        int get_score();
 
     protected:
         Tile **hand;
+        int score;
+        char * player_name;
 
         //list of possible word from player's hand
         Dict_Word *head;
 
         //wrapper function for board function
-        Tile * get_tile_from_bag(Board &board);
+        Tile * get_tile_from_bag(Board *&board);
         //wrapper function for board function
-        void put_tile_back(Board &board, Tile &tile);
+        void put_tile_back(Board *&board, Tile &tile);
         void delete_all(Dict_Word *&current);
         void copy_list(Dict_Word *& head, Dict_Word * src_head);
         void remove_non_matches(Dict_Word *&previous, Dict_Word *&current);

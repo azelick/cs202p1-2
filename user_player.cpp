@@ -3,22 +3,15 @@
 #import <cstring>
 #import "user_player.h"
 
-User_Player::User_Player(): score(0), name(NULL)
+User_Player::User_Player()
 {
 }
 
 User_Player::User_Player(const User_Player &user_player): Hand(user_player)
 {
-   score = user_player.score;
-   if(!(user_player.name == NULL))
-   {
-        name = new char[(strlen(user_player.name) + 1)];
-        strcpy(name, user_player.name);
-   }
-   else {name = NULL;}
 }
 
-User_Player::User_Player(char * name, Board &board) throw(NULL_NAME): Hand(board)
+User_Player::User_Player(char * name, Board *&board): Hand(name, board)
 {
    if(!name) 
    {
@@ -28,15 +21,7 @@ User_Player::User_Player(char * name, Board &board) throw(NULL_NAME): Hand(board
    }
 }
 
-void User_Player::display()
-{
-    cout << "Player " << name;
-    cout << " has the score: " << score << endl;
-    Hand::display();
-    //TODO
-}
-
-bool User_Player::query_dictionary(const Board &board)
+bool User_Player::query_dictionary(const Board *&board)
 {
    cout << "what word would you like to check? ";
    char * temp = new char[51];
@@ -44,7 +29,7 @@ bool User_Player::query_dictionary(const Board &board)
    cin.ignore(100, '\0');
    char * response = new char[strlen(temp) + 1];
    strcpy(response, temp);
-   return board.check_word_is_valid(response);
+   return board->check_word_is_valid(response);
 
     //TODO When querying the dictionary, instead of transferring a bunch of tiles, we can just
     //turn the tiles into a char array and pass that
@@ -63,7 +48,7 @@ char * User_Player::get_user_input()
     char * response = NULL;
     do
     {
-        cout << "It is your turn " << name << endl;
+        cout << "It is your turn " << player_name << endl;
         cout << "What would you like to do?" << endl;
         cout << "Check word in dictionary? (D) " << endl;
         cout << "Play word from hand? (H) " << endl;
@@ -89,14 +74,27 @@ bool User_Player::again(char *response)
     return false;
 }
 
-bool User_Player::play_word()
+        
+void make_play(Board *&board)
 {
     //TODO
 
+    cout << "What letter would you like to put on the board? ";
+    char input;
+    int x, y;
+    cin >> input;
+    cout << "Where would you like to put it?" << endl
+        << "x coordinate: ";
+    cin >> x;
+    cout << "Y coordinate: ";
+    cin >> y;
+    cout << endl;
 
 }
 
 bool User_Player::concede()
 {
     //TODO
+    return false;
 }
+

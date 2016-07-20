@@ -95,7 +95,7 @@ void Node::insert(char *new_word, Node *&root)
     {
         //we're at a leaf
         root = new Node(new_word);
-        cout << "insertion has occurred" << endl; 
+        //cout << "insertion has occurred" << endl; 
     }
     else
     {
@@ -148,8 +148,9 @@ void Node::balance_function(Node *&root)
 
     int balance_factor = get_balance(root);
 
-    cout << "balance_factor at : " << root->word 
-        << " is " << balance_factor << endl;
+    //TODO remove
+    //cout << "balance_factor at : " << root->word 
+    //    << " is " << balance_factor << endl;
 
     if(balance_factor == 2)
     {
@@ -200,7 +201,7 @@ void Node::rotate_counter_clockwise(Node *&root)
     root->left = temp;
     calculate_height(root);
     calculate_height(temp);
-    cout << "rotation left";
+    //cout << "rotation left";
 }
 
 void Node::rotate_clockwise(Node *&root)
@@ -211,7 +212,7 @@ void Node::rotate_clockwise(Node *&root)
     root->right = temp;
     calculate_height(root);
     calculate_height(temp);
-    cout << "rotation right";
+    //cout << "rotation right";
 }
 
 void Node::find_words(Dict_Word *&head, Node * root, const char letter)

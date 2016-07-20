@@ -11,17 +11,15 @@ class Ai_Player: public Hand
     public:
         Ai_Player();
         Ai_Player(const Ai_Player &user_player);
-        Ai_Player(char * name);
+        Ai_Player(const char * name, Board *&board);
+        ~Ai_Player();
+
 
         void display();
-        //determine if the pieces in hand can be played
-        bool is_play_in_hand();
 
-        void make_play();
-
+        void make_play(Board *&board);
 
     protected:
-        int score;
-
-
+        //determine if the pieces in hand can be played
+        bool is_play_in_hand(Board *&board);
 };

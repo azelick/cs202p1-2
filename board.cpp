@@ -150,3 +150,77 @@ Dict_Word * Board::find_words_with_letter(const char letter)
 {
     return dictionary->words_with_letter(letter);
 }
+
+Coordinate Board::find_playable_location(char * word)
+{
+    //traverse to first empty location and return the x coordinate
+    //Then traverse right the length of the word, if all avaliable return 1
+    //if not
+    //traverse down the length of the word, if all available return -1
+    //else
+    //return 0
+    int word_size = strlen(word);
+    // start traversal
+    Coordinate candidate_loc;
+    do{
+        candidate_loc = find_empty_space();
+    } while(!is_contiguous_available(candidate_loc, word_size));
+
+    return candidate_loc;
+}
+
+Coordinate Board::find_empty_space()
+{
+    bool is_empty = false;
+    int x = 0;
+    int y = 0;
+    do
+    {
+        is_empty = !(traverse_to_space(x, y)->is_occupied());
+        if(!is_empty)
+        {
+            ++x;
+            //at end of row
+            if(x > size)
+            {
+                x = 0;
+                ++y;
+            }
+        }
+    } while (!is_empty);
+    
+    Coordinate coords;
+    coords.x = x;
+    coords.y = y;
+    return coords;
+}
+
+bool Board::is_contiguous_available(Coordinate &location, int length)
+{
+    bool across_is_occupied = false;
+    bool down_is_occupied = false;
+    for (int i = 0; i < length && across_is_occupied == false; ++i)
+    {
+        //traverse across
+        across_is_occupied = (traverse_to_space(location.x + i, location.y)->is_occupied());
+    }
+    for (int i = 0; i < length && down_is_occupied == false; ++i)
+    {
+        //traverse down
+        down_is_occupied = (traverse_to_space(location.x, location.y + i)->is_occupied());
+    }
+    if(across_is_occupied == false || down_is_occupied == false)
+    {
+        if(!across_is_occupied)
+        {
+            location.direction = 1;
+            return true;
+        }
+        if(!down_is_occupied)
+        {
+            location.direction = 0;
+            return true;
+        }
+    }
+    return false;
+}

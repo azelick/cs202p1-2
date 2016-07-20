@@ -2,15 +2,16 @@
 
 #import "hand.h"
 
-Hand::Hand(): hand(NULL), head(NULL)
+Hand::Hand(): hand(NULL), score(0), player_name(NULL), head(NULL)
 {
 
 }
 
-Hand::Hand(Board &board)
+Hand::Hand(const char *new_name, Board *&board): score(0), head(NULL)
 {
     hand = new Tile*[7+1];
     draw_new_hand(board);
+
     return;
 }
 
@@ -23,6 +24,16 @@ Hand::Hand(const Hand & ref_hand)
     }
     hand[8] = NULL;
     copy_list(head, ref_hand.head);
+    score = ref_hand.score;
+    if(!(ref_hand.player_name == NULL))
+    {
+        player_name = new char[(strlen(ref_hand.player_name) + 1)];
+        strcpy(player_name, ref_hand.player_name);
+    }
+   else 
+   {
+       player_name = NULL;
+   }
     return;
 }
 
@@ -35,6 +46,8 @@ Hand::~Hand()
     }
     delete hand;
     delete_all(head);
+    if(player_name)
+        delete player_name;
     return;
 }
 
@@ -53,7 +66,7 @@ void Hand::display()
     return;
 }
 
-void Hand::draw_new_hand(Board &board)
+void Hand::draw_new_hand(Board *&board)
 {
     if(!hand)
     {
@@ -67,7 +80,7 @@ void Hand::draw_new_hand(Board &board)
     return;
 }
 
-void Hand::replace_tile(Board &board, char letter)
+void Hand::replace_tile(Board *&board, char letter)
 {
 
     int i = 0;
@@ -79,18 +92,18 @@ void Hand::replace_tile(Board &board, char letter)
     return;
 }
 
-Tile * Hand::get_tile_from_bag(Board &board)
+Tile * Hand::get_tile_from_bag(Board *&board)
 {
-    return board.get_random_tile();
+    return board->get_random_tile();
 }
 
-void Hand::put_tile_back(Board &board, Tile &tile)
+void Hand::put_tile_back(Board *&board, Tile &tile)
 {
-    board.put_tile_back(tile);
+    board->put_tile_back(tile);
     return;
 }
 
-void Hand::place_tile_on_board(Board &board, char letter, int x, int y)
+void Hand::place_tile_on_board(Board *&board, char letter, int x, int y)
 {
     Tile * tile;
     int i = 0;
@@ -98,7 +111,7 @@ void Hand::place_tile_on_board(Board &board, char letter, int x, int y)
         ++i;
     tile = hand[i];
     hand[i] = NULL;
-    board.lay_tile_on_board(tile, x, y);
+    board->lay_tile_on_board(tile, x, y);
     return;
 }
 
@@ -196,4 +209,9 @@ char * Hand::get_hand()
         temp[i] = hand[i]->get_letter();
     temp[8] = '\0';
     return temp;
+}
+
+int Hand::get_score()
+{
+    return score;
 }
