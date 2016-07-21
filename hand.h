@@ -30,17 +30,18 @@ class Hand
         //draw a fresh 7 cards
         void draw_new_hand(Board *&board);
         //replace the given tile with one from the bag
-        void replace_tile(Board *&board, char letter);
+        int replace_tile(Board *&board, char letter);
         //place the given tile on the board
         void place_tile_on_board(Board *&board, char letter, int x, int y);
         void set_dict_match_list(Dict_Word * new_head);
         void display_possibles_list();
         void groom_for_playable_words();
         bool playable_from_hand(char * word);
-        char * get_hand();
+        void get_hand(char *&hand);
         //pure virtual function
-        virtual void make_play(Board *&board)=0;
+        virtual void make_play(Board *&board) =0;
         int get_score();
+        bool contains_letter(const char letter);
 
     protected:
         Tile **hand;

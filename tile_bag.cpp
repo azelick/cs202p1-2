@@ -13,13 +13,11 @@ TileBag::TileBag(int requested_size)
     multiplier = generate_size(requested_size);
 
     tiles_in_bag = (multiplier*unit_size);
-    cout << tiles_in_bag << endl;
 
     tiles = new Tile*[tiles_in_bag + 1];
-    cout << sizeof(tiles) << endl;
     for (int i = 0; i < tiles_in_bag; ++i)
         tiles[i] = NULL;
-    tiles[tiles_in_bag + 1] = NULL;
+    tiles[tiles_in_bag] = NULL;
     populate();
     return;
 }
@@ -57,36 +55,35 @@ void TileBag::populate()
        while (t < multiplier)
        {
            //add consonants, and each consonant is worth 2 points
-           for (int v = 0; v < 21; v++)
+           for (int v = 0; v < 21; ++v)
            {
                tiles[i] = new Tile(consonants[v], 2);
                ++i;
            }
            //add vowels, each is worth 1 point
-           for (int v = 0; v < 5; v++)
+           for (int v = 0; v < 5; ++v)
            {
                 tiles[i] = new Tile(vowels[v], 1);
                 ++i;
            }
-           for (int v = 0; v < 5; v++)
+           for (int v = 0; v < 5; ++v)
            {
                 tiles[i] = new Tile(vowels[v], 1);
                 ++i;
            }
-           for (int v = 0; v < 5; v++)
+           for (int v = 0; v < 5; ++v)
            {
                 tiles[i] = new Tile(vowels[v], 1);
                 ++i;
            }
-           for (int v = 0; v < 5; v++)
+           for (int v = 0; v < 5; ++v)
            {
                 tiles[i] = new Tile(vowels[v], 1);
                 ++i;
            }
-           t++;
-           shuffle_tiles();
+           ++t;
        }
-    
+       shuffle_tiles();
        return;
 }
 
@@ -100,7 +97,7 @@ Tile * TileBag::get_random_tile()
     return temp;
 }
 
-    void TileBag::put_tile_back(Tile &tile)
+void TileBag::put_tile_back(Tile &tile)
 {
     int i = 0;
     while(tiles[i] != NULL)

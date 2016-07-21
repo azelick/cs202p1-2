@@ -20,7 +20,6 @@ int main()
     Board *playing_board = new Board(10);
     playing_board->set_premium();
     playing_board->display();
-    cin.get();
     
     Hand *player_a;
     Hand *player_u;
@@ -34,24 +33,27 @@ int main()
    player_u = new User_Player(input, playing_board);
    player_a= new Ai_Player("AI man", playing_board);
 
-    cout << "This is the AI hand: " << endl;
-    player_a->display();
-    
-    cout << "This is the player's hand " << endl;
-
-    bool player_wins = false;
+   bool player_wins = false;
     do
-    {
+    {   
+        cout << "This is the AI hand: " << endl;
+        player_a->display();
+        
+        cout << "This is the player's hand " << endl;
+        player_u->display();
+
+        //user goes first
         player_u->make_play(playing_board);
+        //ai goes second
         player_a->make_play(playing_board);
 
+        playing_board->display();
         if(player_u->get_score() > 5 || player_a->get_score() > 5)
         {player_wins = true;}
     }while(!player_wins && again());
 
 
 
-    cin.get();
     player_a->make_play(playing_board);
 
     //Coordinate loc = playing_board->find_playable_location(hand->head->word);

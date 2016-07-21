@@ -68,10 +68,13 @@ void Dictionary::fill_tree_from_file()
 bool Dictionary::does_contain(const char *word)
 {
     int i = 0;
+    if(!word)
+        return false;
     char * mutable_word = new char[strlen(word) + 1];
+    strcpy(mutable_word, word);
     while(word[i] != '\0')
     {
-        mutable_word[i] = toupper(word[i]);
+        mutable_word[i] = toupper(mutable_word[i]);
         ++i;
     }
     return root->find_word(mutable_word);

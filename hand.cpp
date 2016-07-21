@@ -10,8 +10,10 @@ Hand::Hand(): hand(NULL), score(0), player_name(NULL), head(NULL)
 Hand::Hand(const char *new_name, Board *&board): score(0), head(NULL)
 {
     hand = new Tile*[7+1];
+    hand[7] = NULL;
     draw_new_hand(board);
-
+    player_name = new char[(strlen(new_name) + 1)];
+    strcpy(player_name, new_name);
     return;
 }
 
@@ -22,7 +24,7 @@ Hand::Hand(const Hand & ref_hand)
     {
         hand[i] = ref_hand.hand[i];
     }
-    hand[8] = NULL;
+    hand[7] = NULL;
     copy_list(head, ref_hand.head);
     score = ref_hand.score;
     if(!(ref_hand.player_name == NULL))
@@ -71,7 +73,7 @@ void Hand::draw_new_hand(Board *&board)
     if(!hand)
     {
         hand = new Tile*[7+1];
-        hand[8] = NULL;
+        hand[7] = NULL;
     }
     for(int i = 0; i < 7; ++i)
     {
@@ -80,16 +82,25 @@ void Hand::draw_new_hand(Board *&board)
     return;
 }
 
-void Hand::replace_tile(Board *&board, char letter)
+int Hand::replace_tile(Board *&board, char letter)
 {
-
-    int i = 0;
-    while (hand[i]->get_letter() != letter) 
-        ++i;
-    put_tile_back(board, *hand[i]);
-    hand[i] = NULL;
-    hand[i] = get_tile_from_bag(board);
-    return;
+    bool was_removed = false;
+    int point_value = 0;
+    for(int i = 0; i < 7 && was_removed == false; ++i)
+    {
+        if(hand[i] != NULL)
+        {
+            if(hand[i]->get_letter() == letter)
+            {
+                point_value += hand[i]->get_point_value();
+                delete hand[i];
+                hand[i] = NULL;
+                hand[i] = board->get_random_tile();
+                was_removed = true;
+            }
+        }
+    }
+    return point_value;
 }
 
 Tile * Hand::get_tile_from_bag(Board *&board)
@@ -110,7 +121,6 @@ void Hand::place_tile_on_board(Board *&board, char letter, int x, int y)
     while((hand[i] != NULL) && (hand[i]->get_letter() != letter))
         ++i;
     tile = hand[i];
-    hand[i] = NULL;
     board->lay_tile_on_board(tile, x, y);
     return;
 }
@@ -196,22 +206,39 @@ bool Hand::playable_from_hand(char * word)
     int size = strlen(word);
     for(int i = 0; i < size; ++i)
     {
-        if(!strchr(get_hand(), word[i]))
+        char * temp_hand = NULL;
+        get_hand(temp_hand);
+        if(!strchr(temp_hand, word[i]))
             does_match = false;
+        delete temp_hand;
     }
     return does_match;
 }
 
-char * Hand::get_hand()
+void Hand::get_hand(char *&return_hand)
 {
-    char * temp = new char[8];
+    //we should be passed a null pointer
+    if(return_hand)
+        return;
+    return_hand = new char[8];
     for(int i = 0; i < 7; ++i)
-        temp[i] = hand[i]->get_letter();
-    temp[8] = '\0';
-    return temp;
+        return_hand[i] = hand[i]->get_letter();
+    return_hand[7] = '\0';
 }
 
 int Hand::get_score()
 {
     return score;
 }
+
+bool Hand::contains_letter(const char letter)
+{
+    bool contains = false;
+    for(int i = 0; i < 7; ++i)
+    {
+        if(hand[i]->get_letter() == letter)
+            contains = true;
+    }
+    return contains;
+}
+
