@@ -41,16 +41,13 @@ Hand::Hand(const Hand & ref_hand)
 
 Hand::~Hand()
 {
-    for(int i = 0; i < 7; ++i)
-    {
-        if (tiles_in_hand[i])
-            delete tiles_in_hand[i];
-    }
-    delete tiles_in_hand;
+    delete [] tiles_in_hand;
     delete_all(head);
     if(player_name)
-        delete player_name;
+        delete [] player_name;
     return;
+    if(hand)
+        delete [] hand;
 }
 
 void Hand::display()
@@ -215,15 +212,16 @@ bool Hand::playable_from_hand(char * word)
     return does_match;
 }
 
-void Hand::get_hand(char *&return_hand)
+void Hand::get_hand(char *return_hand)
 {
     //we should be passed a null pointer
-    if(return_hand)
-        return;
-    return_hand = new char[8];
+    if(hand)
+        delete [] hand;
+    hand = new char[8];
     for(int i = 0; i < 7; ++i)
-        return_hand[i] = tiles_in_hand[i]->get_letter();
-    return_hand[7] = '\0';
+        hand[i] = tiles_in_hand[i]->get_letter();
+    hand[7] = '\0';
+    return_hand = hand;
 }
 
 int Hand::get_score()

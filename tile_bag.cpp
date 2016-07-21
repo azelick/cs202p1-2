@@ -3,7 +3,7 @@
 
 #import "tile_bag.h"
 
-TileBag::TileBag(): tiles(NULL), multiplier(1)
+TileBag::TileBag(): tiles(NULL), tiles_given_out(NULL), multiplier(1)
 {
 
 }
@@ -14,10 +14,17 @@ TileBag::TileBag(int requested_size)
 
     tiles_in_bag = (multiplier*unit_size);
 
+    //Tiles kept in the bag
     tiles = new Tile*[tiles_in_bag + 1];
     for (int i = 0; i < tiles_in_bag; ++i)
         tiles[i] = NULL;
     tiles[tiles_in_bag] = NULL;
+
+    //Tiles given out
+    tiles_given_out = new Tile*[tiles_in_bag + 1];
+    for (int i = 0; i <= tiles_in_bag; ++i)
+        tiles_given_out[i] = NULL;
+
     populate();
     return;
 }
@@ -41,7 +48,18 @@ TileBag::~TileBag()
         for(int i = 0; i < tiles_in_bag; ++i)
             delete tiles[i];
     }
-    delete tiles;
+    delete [] tiles;
+    int i = 0;
+    if(tiles_given_out)
+    {
+        while(tiles_given_out[i] != NULL)
+        {
+            delete tiles_given_out[i];
+            ++i;
+        }
+    }
+    delete [] tiles_given_out;
+    
     return;
 }
 
@@ -97,12 +115,24 @@ Tile * TileBag::get_random_tile()
     return temp;
 }
 
-void TileBag::put_tile_back(Tile &tile)
+void TileBag::return_to_unused(Tile *tile)
 {
-    int i = 0;
+     int i = 0;
     while(tiles[i] != NULL)
         ++i;
-    *tiles[i] = tile;
+    tiles[i] = tile;
+    return;
+
+
+}
+
+void TileBag::put_tile_back(Tile *tile)
+{
+    int i = 0;
+    while(tiles_given_out[i] != NULL && tiles_given_out[i] != tile)
+        ++i;
+    return_to_unused(tile);
+    tiles[i] = NULL;
     return;
 }
 

@@ -110,7 +110,7 @@ Tile * Board::get_random_tile()
     return bag->get_random_tile();
 }
 
-void Board::put_tile_back(Tile tile)
+void Board::put_tile_back(Tile *tile)
 {
     bag->put_tile_back(tile);
     return;

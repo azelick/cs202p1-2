@@ -26,12 +26,14 @@ class TileBag
          //provide the caller with a random tile from the 'bag'
         Tile * get_random_tile();
         //put a tile back in the array
-        void put_tile_back(Tile &tile); 
+        void put_tile_back(Tile *tile); 
 
     protected:
         Tile **tiles;
+        Tile **tiles_given_out;
         int multiplier;
         int tiles_in_bag;
+
         //one unit is 20 consonants, 4 times the 5 vowels
         // and one y
         static const int unit_size = 41;
@@ -42,4 +44,5 @@ class TileBag
         void populate();
         //calculate how many tiles we need
         int generate_size(int requested_size);
+        void return_to_unused(Tile *tile);
 };
