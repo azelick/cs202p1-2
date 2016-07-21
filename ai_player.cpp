@@ -12,7 +12,7 @@ Ai_Player::Ai_Player(const Ai_Player &user_player): Hand(user_player)
 {
 }
 
-Ai_Player::Ai_Player(const char * name, Board *&board): Hand(name, board)
+Ai_Player::Ai_Player(const char * name, Board *board): Hand(name, board)
 {
 }
 
@@ -20,7 +20,7 @@ Ai_Player::~Ai_Player()
 {
 }
 
-void Ai_Player::find_plays_in_hand(Board *&board)
+void Ai_Player::find_plays_in_hand(Board *board)
 {
     //TODO don't have time to implement more that checking the first letter for AI
     char * temp = NULL;
@@ -36,7 +36,7 @@ void Ai_Player::find_plays_in_hand(Board *&board)
     delete temp;
 }
 
-void Ai_Player::make_play(Board *&board)
+void Ai_Player::make_play(Board *board)
 {
     find_plays_in_hand(board);
        

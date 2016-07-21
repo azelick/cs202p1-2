@@ -10,11 +10,11 @@ User_Player::User_Player(const User_Player &user_player): Hand(user_player)
 {
 }
 
-User_Player::User_Player(char * name, Board *&board): Hand(name, board)
+User_Player::User_Player(char * name, Board *board): Hand(name, board)
 {
 }
 
-void User_Player::query_dictionary(Board *&board)
+void User_Player::query_dictionary(Board *board)
 {
    cout << "what word would you like to check? ";
    char temp[51]; 
@@ -60,7 +60,7 @@ bool User_Player::again(char response)
 
         
         
-void User_Player::make_play(Board *&board)
+void User_Player::make_play(Board *board)
 {
 
     char choice = get_user_choice();
@@ -81,7 +81,7 @@ void User_Player::make_play(Board *&board)
     cin.get();
 }
 
-void User_Player::get_and_send_tiles_to_board(Board *&board)
+void User_Player::get_and_send_tiles_to_board(Board *board)
 {
     cout << "What word in your hand would you like to send to the board?" << endl;
     cout << "Lets do it letter by letter. " << endl;

@@ -2,15 +2,15 @@
 
 #import "hand.h"
 
-Hand::Hand(): hand(NULL), score(0), player_name(NULL), head(NULL)
+Hand::Hand(): tiles_in_hand(NULL), score(0), player_name(NULL), hand(NULL),  head(NULL)
 {
 
 }
 
-Hand::Hand(const char *new_name, Board *&board): score(0), head(NULL)
+Hand::Hand(const char *new_name, Board *board): score(0), hand(NULL), head(NULL)
 {
-    hand = new Tile*[7+1];
-    hand[7] = NULL;
+    tiles_in_hand = new Tile*[7+1];
+    tiles_in_hand[7] = NULL;
     draw_new_hand(board);
     player_name = new char[(strlen(new_name) + 1)];
     strcpy(player_name, new_name);
@@ -19,12 +19,12 @@ Hand::Hand(const char *new_name, Board *&board): score(0), head(NULL)
 
 Hand::Hand(const Hand & ref_hand)
 {
-    hand = new Tile *[7+1];
+    tiles_in_hand = new Tile *[7+1];
     for (int i = 0; i < 7; ++i)
     {
-        hand[i] = ref_hand.hand[i];
+        tiles_in_hand[i] = ref_hand.tiles_in_hand[i];
     }
-    hand[7] = NULL;
+    tiles_in_hand[7] = NULL;
     copy_list(head, ref_hand.head);
     score = ref_hand.score;
     if(!(ref_hand.player_name == NULL))
@@ -43,10 +43,10 @@ Hand::~Hand()
 {
     for(int i = 0; i < 7; ++i)
     {
-        if (hand[i])
-            delete hand[i];
+        if (tiles_in_hand[i])
+            delete tiles_in_hand[i];
     }
-    delete hand;
+    delete tiles_in_hand;
     delete_all(head);
     if(player_name)
         delete player_name;
@@ -58,9 +58,9 @@ void Hand::display()
     cout << endl;
     for(int i = 0; i < 7; ++i)
     {
-        if(hand[i] != NULL)
+        if(tiles_in_hand[i] != NULL)
         {
-            hand[i]->display();
+            tiles_in_hand[i]->display();
             cout << endl;
         }
     }
@@ -68,34 +68,34 @@ void Hand::display()
     return;
 }
 
-void Hand::draw_new_hand(Board *&board)
+void Hand::draw_new_hand(Board *board)
 {
-    if(!hand)
+    if(!tiles_in_hand)
     {
-        hand = new Tile*[7+1];
-        hand[7] = NULL;
+        tiles_in_hand = new Tile*[7+1];
+        tiles_in_hand[7] = NULL;
     }
     for(int i = 0; i < 7; ++i)
     {
-        hand[i] = get_tile_from_bag(board);
+        tiles_in_hand[i] = get_tile_from_bag(board);
     }
     return;
 }
 
-int Hand::replace_tile(Board *&board, char letter)
+int Hand::replace_tile(Board *board, char letter)
 {
     bool was_removed = false;
     int point_value = 0;
     for(int i = 0; i < 7 && was_removed == false; ++i)
     {
-        if(hand[i] != NULL)
+        if(tiles_in_hand[i] != NULL)
         {
-            if(hand[i]->get_letter() == letter)
+            if(tiles_in_hand[i]->get_letter() == letter)
             {
-                point_value += hand[i]->get_point_value();
-                delete hand[i];
-                hand[i] = NULL;
-                hand[i] = board->get_random_tile();
+                point_value += tiles_in_hand[i]->get_point_value();
+                delete tiles_in_hand[i];
+                tiles_in_hand[i] = NULL;
+                tiles_in_hand[i] = board->get_random_tile();
                 was_removed = true;
             }
         }
@@ -103,24 +103,24 @@ int Hand::replace_tile(Board *&board, char letter)
     return point_value;
 }
 
-Tile * Hand::get_tile_from_bag(Board *&board)
+Tile * Hand::get_tile_from_bag(Board *board)
 {
     return board->get_random_tile();
 }
 
-void Hand::put_tile_back(Board *&board, Tile &tile)
+void Hand::put_tile_back(Board *board, Tile *tile)
 {
     board->put_tile_back(tile);
     return;
 }
 
-void Hand::place_tile_on_board(Board *&board, char letter, int x, int y)
+void Hand::place_tile_on_board(Board *board, char letter, int x, int y)
 {
     Tile * tile;
     int i = 0;
-    while((hand[i] != NULL) && (hand[i]->get_letter() != letter))
+    while((tiles_in_hand[i] != NULL) && (tiles_in_hand[i]->get_letter() != letter))
         ++i;
-    tile = hand[i];
+    tile = tiles_in_hand[i];
     board->lay_tile_on_board(tile, x, y);
     return;
 }
@@ -222,7 +222,7 @@ void Hand::get_hand(char *&return_hand)
         return;
     return_hand = new char[8];
     for(int i = 0; i < 7; ++i)
-        return_hand[i] = hand[i]->get_letter();
+        return_hand[i] = tiles_in_hand[i]->get_letter();
     return_hand[7] = '\0';
 }
 
@@ -236,7 +236,7 @@ bool Hand::contains_letter(const char letter)
     bool contains = false;
     for(int i = 0; i < 7; ++i)
     {
-        if(hand[i]->get_letter() == letter)
+        if(tiles_in_hand[i]->get_letter() == letter)
             contains = true;
     }
     return contains;

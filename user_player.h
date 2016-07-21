@@ -17,12 +17,12 @@ class User_Player: public Hand
         //copy constructor
         User_Player(const User_Player &user_player);
         //argument constructor
-        User_Player(char * name, Board *&board);
+        User_Player(char * name, Board *board);
         ~User_Player(); 
 
-        void query_dictionary(Board *&board);
+        void query_dictionary(Board *board);
         char get_user_choice();
-        void make_play(Board *&board); //TODO
+        void make_play(Board *board); 
 
 
     protected:
@@ -31,5 +31,5 @@ class User_Player: public Hand
         bool again(char response);
         void get_and_send_word_to_board();
         bool another_letter();
-        void get_and_send_tiles_to_board(Board *&board);
+        void get_and_send_tiles_to_board(Board *board);
 };

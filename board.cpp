@@ -78,7 +78,7 @@ void Board::create_spaces(Column_Space *&current, int length_remaining, int max_
     }
 
     current->get_next() = new Column_Space(max_size);
-    cout << "A column Space has been made" << endl;
+//    cout << "A column Space has been made" << endl;
     current->get_next()->get_previous() = current;
     create_spaces(current->get_next(), --length_remaining, max_size);
     return;
@@ -110,7 +110,7 @@ Tile * Board::get_random_tile()
     return bag->get_random_tile();
 }
 
-void Board::put_tile_back(Tile &tile)
+void Board::put_tile_back(Tile tile)
 {
     bag->put_tile_back(tile);
     return;
@@ -195,7 +195,7 @@ Coordinate Board::find_empty_space()
     return coords;
 }
 
-bool Board::is_contiguous_available(Coordinate &location, int length)
+bool Board::is_contiguous_available(Coordinate location, int length)
 {
     bool across_is_occupied = false;
     bool down_is_occupied = false;
