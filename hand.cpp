@@ -90,7 +90,6 @@ int Hand::replace_tile(Board *board, char letter)
             if(tiles_in_hand[i]->get_letter() == letter)
             {
                 point_value += tiles_in_hand[i]->get_point_value();
-                delete tiles_in_hand[i];
                 tiles_in_hand[i] = NULL;
                 tiles_in_hand[i] = board->get_random_tile();
                 was_removed = true;
@@ -204,15 +203,14 @@ bool Hand::playable_from_hand(char * word)
     for(int i = 0; i < size; ++i)
     {
         char * temp_hand = NULL;
-        get_hand(temp_hand);
+        temp_hand = get_hand();
         if(!strchr(temp_hand, word[i]))
             does_match = false;
-        delete temp_hand;
     }
     return does_match;
 }
 
-void Hand::get_hand(char *return_hand)
+char * Hand::get_hand()
 {
     //we should be passed a null pointer
     if(hand)
@@ -221,7 +219,8 @@ void Hand::get_hand(char *return_hand)
     for(int i = 0; i < 7; ++i)
         hand[i] = tiles_in_hand[i]->get_letter();
     hand[7] = '\0';
-    return_hand = hand;
+    return hand;
+
 }
 
 int Hand::get_score()

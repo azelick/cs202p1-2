@@ -24,16 +24,11 @@ void Ai_Player::find_plays_in_hand(Board *board)
 {
     //TODO don't have time to implement more that checking the first letter for AI
     char * temp = NULL;
-    get_hand(temp);
+    temp = get_hand();
     char first_letter = temp[0];
-    cout << "1" << endl;
     set_dict_match_list(board->find_words_with_letter(first_letter));
-    cout << "2" << endl;
     groom_for_playable_words();
-    cout << "3" << endl;
     display_possibles_list();
-
-    delete temp;
 }
 
 void Ai_Player::make_play(Board *board)

@@ -37,7 +37,7 @@ class Hand
         void display_possibles_list();
         void groom_for_playable_words();
         bool playable_from_hand(char * word);
-        void get_hand(char *hand);
+        char * get_hand();
         //pure virtual function
         virtual void make_play(Board *board) =0;
         int get_score();
