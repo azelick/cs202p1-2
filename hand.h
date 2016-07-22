@@ -42,6 +42,7 @@ class Hand
         virtual void make_play(Board *board) =0;
         int get_score();
         bool contains_letter(const char letter);
+        void display_score();
 
     protected:
         Tile **tiles_in_hand;

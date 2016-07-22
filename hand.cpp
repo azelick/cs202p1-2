@@ -228,6 +228,11 @@ int Hand::get_score()
     return score;
 }
 
+void Hand::display_score()
+{
+    cout << "The score for the player is: " << score << endl;
+}
+
 bool Hand::contains_letter(const char letter)
 {
     bool contains = false;

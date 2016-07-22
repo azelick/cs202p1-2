@@ -24,7 +24,6 @@ class User_Player: public Hand
         char get_user_choice();
         void make_play(Board *board); 
 
-
     protected:
 
         //check if user's input is valid

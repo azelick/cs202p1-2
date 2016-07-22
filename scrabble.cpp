@@ -36,9 +36,11 @@ int main()
    bool player_wins = false;
     do
     {   
+        player_a->display_score();
         cout << "This is the AI hand: " << endl;
         player_a->display();
         
+        player_u->display_score();
         cout << "This is the player's hand " << endl;
         player_u->display();
 

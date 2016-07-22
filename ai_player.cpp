@@ -58,5 +58,7 @@ void Ai_Player::make_play(Board *board)
             
         }
     } 
+    score += turn_score;
+    cout << "The AI's play this turn was worth " << turn_score << " points" << endl; 
 }
 
